@@ -1,0 +1,12 @@
+.actions {
+	margin: 20px 0;
+}
+
+.addButton {
+	background: #5685EB;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 100px;
+}

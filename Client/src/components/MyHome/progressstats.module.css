@@ -1,0 +1,56 @@
+.wrapper_chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  flex: 1;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;  
+}
+
+.tab {
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid #969696;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #969696;
+}
+
+.activeTab {
+  background: #5685EB;
+  color: #fff;
+  border: none;
+}
+
+.chartCard {
+  background: #fff;
+  border: 1px solid #EEEEEE;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.select {
+  border: none;
+  background: #E7F0FF;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #303033;
+}
+
+.chart {
+  width: 100%;
+  height: 300px;
+}

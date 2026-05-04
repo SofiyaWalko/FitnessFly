@@ -1,0 +1,13 @@
+.bigbutton {
+    background: #5685EB;
+    border: none;
+    cursor: pointer;
+
+    padding: 16px 20px;
+    border-radius: 100px;
+
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+

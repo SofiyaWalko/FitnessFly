@@ -1,0 +1,60 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Content-Type: application/json; charset=UTF-8");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+include "../../config.php";
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+$program_id = intval($data["program_id"]);
+$day_number = intval($data["day_number"]);
+$training_id = intval($data["training_id"]);
+
+/* ======================
+   НАЙТИ program_day_id
+====================== */
+$result = mysqli_query($link, "
+SELECT id FROM program_days
+WHERE program_id = $program_id AND day_number = $day_number
+");
+
+$row = mysqli_fetch_assoc($result);
+
+if (!$row) {
+    echo json_encode(["success" => false]);
+    exit;
+}
+
+$program_day_id = $row["id"];
+
+/* ======================
+   ОПРЕДЕЛЯЕМ order_number
+====================== */
+$result = mysqli_query($link, "
+SELECT MAX(order_number) as max_order
+FROM program_day_trainings
+WHERE program_day_id = $program_day_id
+");
+
+$row = mysqli_fetch_assoc($result);
+$order = ($row["max_order"] ?? 0) + 1;
+
+/* ======================
+   ДОБАВЛЯЕМ
+====================== */
+mysqli_query($link, "
+INSERT INTO program_day_trainings (program_day_id, training_id, order_number)
+VALUES ($program_day_id, $training_id, $order)
+");
+
+echo json_encode([
+    "success" => true,
+    "order" => $order
+]);

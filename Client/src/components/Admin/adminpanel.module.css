@@ -1,0 +1,148 @@
+.adminpanel {  
+	padding: 0 0 100px 0;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .buttons {
+    display: flex;
+    gap: 20;
+    align-items: center;
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+.tabbig {
+    margin: 40px 0 50px 0;
+
+    display: flex;
+    gap: 20px;
+}
+
+.recipes {
+    display: flex;
+	gap: 10px;
+    flex-wrap: wrap;
+}
+
+.programs {
+    display: flex;
+	gap: 10px;
+    flex-wrap: wrap;
+
+}
+
+.trainings {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.tabs {
+	display: flex;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.tab {
+	font-family: "Manrope", sans-serif;
+	padding: 10px 18px;
+	border-radius: 20px;
+	border: 1px solid #D8D8E8;
+	background: #F3F3F8;
+	cursor: pointer;
+	font-size: 14px;
+	color: #969696;
+}
+
+.activeTab {
+	font-family: "Manrope", sans-serif;
+	padding: 10px 18px;
+	border-radius: 20px;
+	border: none;
+	background: #5685EB;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.empty {
+	margin-top: 40px;
+	color: #969696;
+	font-size: 16px;
+}
+
+.days {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.card {
+	width: 150px;
+	height: 100px;
+	background: #fff;
+	border-radius: 16px;
+	border: 1px solid #EAEAFF;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: relative;
+	cursor: pointer;
+
+	transition: all 0.2s ease;
+}
+
+
+.card:hover {
+	border: 2px solid #5685EB;
+	transform: translateY(-2px);
+}
+
+/* номер дня */
+.dayNumber {
+	font-size: 16px;
+	font-weight: 500;
+	color: #2d2d2d;
+}
+
+/* крестик */
+.deleteBtn {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+
+	width: 22px;
+	height: 22px;
+
+	border: none;
+	border-radius: 50%;
+	background: #F3F3F3;
+	color: #888;
+
+	cursor: pointer;
+	font-size: 14px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: 0.2s;
+}
+
+.deleteBtn:hover {
+	background: #5685EB;
+	color: #fff;
+}

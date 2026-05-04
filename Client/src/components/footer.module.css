@@ -1,0 +1,29 @@
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.footerContent span {
+    font-size: 14px;
+}
+
+.social {
+    display: flex;
+    gap: 20px;
+}
+
+.social img {
+  width: 40px;
+}

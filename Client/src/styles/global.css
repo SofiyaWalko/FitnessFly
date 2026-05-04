@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../assets/fonts/gilroy-bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../assets/fonts/gilroy-medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background: #FAFCFF;
+  color: #2d2d2d;
+}
+
+h1 {
+    font-family: "Gilroy", sans-serif;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 32px;
+    font-family: "Gilroy", sans-serif;
+    font-weight: 500;
+}
+
+h3 {
+  font-size: 20px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+
+h4 {
+    font-size: 24;
+    color: #2d2d2d;
+    font-weight: 500;
+    
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 90px;
+}
+
+img {
+  object-fit: cover;
+}

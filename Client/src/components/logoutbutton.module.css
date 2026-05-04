@@ -1,0 +1,10 @@
+.logoutbutton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+button img {
+    width: 60px;
+    height: 60px;
+}

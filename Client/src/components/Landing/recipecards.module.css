@@ -1,0 +1,21 @@
+.recipes {
+	padding: 0 0 100px 0;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin-bottom: 30px;
+}
+
+.recipecards {
+    display: flex;
+    justify-content: space-between;
+}

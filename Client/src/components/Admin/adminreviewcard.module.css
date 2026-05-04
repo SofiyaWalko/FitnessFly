@@ -1,0 +1,110 @@
+.card {
+	background: #fff;
+	border-radius: 16px;
+	padding: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+/* ======================
+   HEADER
+====================== */
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.user {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.name {
+    font-family: "Manrope", sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	color: #222;
+}
+
+.date {
+    font-family: "Manrope", sans-serif;
+	font-size: 12px;
+	color: #999;
+}
+
+/* ======================
+   STARS
+====================== */
+
+.stars {
+	display: flex;
+	gap: 4px;
+}
+
+.stars img {
+	width: 14px;
+	height: 14px;
+}
+
+/* ======================
+   TEXT
+====================== */
+
+.text {
+    font-family: "Manrope", sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #444;
+    width: auto;
+
+    word-break: break-word;
+	overflow-wrap: break-word;
+	white-space: normal;
+}
+
+/* ======================
+   PROGRAM
+====================== */
+
+.program {
+    font-family: "Manrope", sans-serif;
+	font-size: 13px;
+	color: #888;
+}
+
+/* ======================
+   ACTIONS
+====================== */
+
+.actions {
+	margin-top: 10px;
+
+    display: flex;
+    gap: 10px;
+}
+
+.primary {
+	background: #5685EB;
+	border: none;
+}
+
+.primary span {
+	color: #fff;
+}
+
+.primary:hover {
+	background: #6a96f5;
+}

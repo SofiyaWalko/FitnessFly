@@ -1,0 +1,49 @@
+.norm_item {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #E7F0FF;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;    
+    flex: 1;
+
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.count_note {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.count_item {
+    display: flex;
+    gap: 8px;
+
+    align-items: baseline;
+}
+
+.count {
+    font-size: 48px;
+    font-weight: 500;
+    color: #1C2D52;
+}
+
+.unit {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C2D52;
+}
+
+.note {
+    font-size: 14px;
+    font-weight: 500;
+    color: #777B81;
+}

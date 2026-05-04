@@ -1,0 +1,11 @@
+.category {
+    position: absolute;
+    top: 31px;
+    left: 31px;
+
+    padding: 6px 16px;    
+    border-radius: 100px;
+    
+    font-size: 14px;
+    color: #2d2d2d;
+}

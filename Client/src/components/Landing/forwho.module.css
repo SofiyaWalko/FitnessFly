@@ -1,0 +1,62 @@
+.forwho {
+	padding: 0 0 100px 0;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.title {
+	margin-bottom: 30px;
+}
+
+.forwhocontent {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.forwhocards {
+	display: flex;
+	justify-content: space-between;
+}
+
+.forwhocard {
+	padding: 20px;
+	border-radius: 30px;
+	box-shadow: 0 4px 8px rgba(60, 90, 209, 0.2);
+	background-color: #fff;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0px;
+
+	max-width: 310px;
+	width: 100%;
+	height: auto;
+}
+
+.forwhocard span {
+	text-align: center;
+}
+
+.button_container {
+	align-self: center;
+}
+
+.forwhobutton {
+	border: none;
+	padding: 12px 24px;
+	border-radius: 100px;
+	background: linear-gradient(90deg, #31c4ff, #360db3);
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+	font-family: "Manrope", sans-serif;
+	font-weight: 500;
+
+	max-width: 200px;
+}

@@ -1,0 +1,43 @@
+.parameters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    max-width: 420px;
+    width: 100%;
+}
+
+.parameters .items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+.parameter {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #EAEAFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+
+    display: flex;
+    justify-content: space-between;    
+}
+
+.parameter > span {
+    font-size: 16px;
+    color: #1C2D52;
+}
+
+.parameter .value {
+    display: flex;
+    gap: 4px;
+}
+
+.parameter .value span {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1C2D52;
+}

@@ -1,0 +1,73 @@
+.container {
+	max-width: 1000px;
+	margin: 80px auto;
+}
+
+.title {
+	font-size: 36px;
+	font-weight: 500;
+	margin-bottom: 40px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px 40px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+}
+
+.field label {
+	font-size: 14px;
+	margin-bottom: 6px;
+	color: #555;
+}
+
+.field input,
+.field select {
+	height: 48px;
+	padding: 0 16px;
+
+	border-radius: 12px;
+	border: 1px solid #D8D8E8;
+	background: #F3F3F8;
+
+	font-size: 14px;
+}
+
+.radioGroup {
+	display: flex;
+	gap: 24px;
+	align-items: center;
+	height: 48px;
+}
+
+.button {
+	margin-top: 40px;
+
+	width: 220px;
+	height: 52px;
+
+	border: none;
+	border-radius: 40px;
+
+	font-size: 16px;
+	color: white;
+
+	cursor: pointer;
+
+	background: linear-gradient(
+		90deg,
+		#38A9D6 0%,
+		#3A7BD5 50%,
+		#3B1DBB 100%
+	);
+}
+
+.login {
+	margin-top: 16px;
+	font-size: 14px;
+}
