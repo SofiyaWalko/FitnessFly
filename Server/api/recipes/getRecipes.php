@@ -23,21 +23,17 @@ SELECT
     r.points_price,
     r.calories,
     c.category_name,
-    fr.id as is_favorite,
-    rp.id as is_purchased
+    " . ($user_id ? "EXISTS(
+        SELECT 1 FROM favorites_rc fr 
+        WHERE fr.recipe_id = r.id AND fr.user_id = $user_id
+    )" : "0") . " AS is_favorite,
+    " . ($user_id ? "EXISTS(
+        SELECT 1 FROM recipes_purchases rp 
+        WHERE rp.recipe_id = r.id AND rp.user_id = $user_id
+    )" : "0") . " AS is_purchased
 FROM recipes r
 JOIN recipe_category c ON c.id = r.category_id
-
-LEFT JOIN favorites_rc fr 
-    ON fr.recipe_id = r.id 
-    " . ($user_id ? "AND fr.user_id = $user_id" : "") . "
-
-LEFT JOIN recipes_purchases rp 
-    ON rp.recipe_id = r.id 
-    " . ($user_id ? "AND rp.user_id = $user_id" : "") . "
-
 WHERE r.is_archived = 0
-
 ORDER BY r.id DESC
 ";
 

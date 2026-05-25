@@ -15,3 +15,35 @@
     margin-bottom: 100px;
     
 }
+
+.tabs {
+	display: flex;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.tab {
+	padding: 8px 18px;
+	border-radius: 999px;
+	border: 1px solid #d0d5dd;
+	background: transparent;
+	color: #979797;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.tab:hover {
+	background: #f2f4f7;
+}
+
+.active {
+	background: #5685EB;
+	color: white;
+	border: none;
+}
+
+.active:hover {
+    background: #5685EB;
+	color: white;
+	border: none;
+}

@@ -1,167 +1,204 @@
+import { useState } from "react"
 import styles from "./registerform.module.css"
 
-function RegisterStep2({formData,setFormData}){
+function RegisterStep2({ formData, setFormData }) {
 
-function change(e){
-setFormData({...formData,[e.target.name]:e.target.value})
-}
+	const [errors, setErrors] = useState({})
 
-function submit(){
+	function change(e) {
+		setFormData({ ...formData, [e.target.name]: e.target.value })
 
-if(!formData.gender){
-alert("Выберите пол")
-return
-}
+		// очищаем ошибку при изменении
+		setErrors(prev => ({ ...prev, [e.target.name]: "" }))
+	}
 
-if(!formData.goal){
-alert("Выберите цель")
-return
-}
+	function submit() {
 
-if(!formData.activity){
-alert("Выберите уровень активности")
-return
-}
+		let newErrors = {}
 
-fetch("http://fitnessfly.local/api/auth/register.php",{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify(formData)
-})
-.then(res=>res.json())
-.then(data=>{
+		// обязательные
+		if (!formData.gender) {
+			newErrors.gender = "Выберите пол"
+		}
 
-if(data.status==="success"){
+		if (!formData.birthday) {
+			newErrors.birthday = "Введите дату рождения"
+		}
 
-localStorage.setItem("user_id",data.user_id)
-window.location="/home"
+		// проверка на отрицательные числа
+		if (formData.height && Number(formData.height) < 0) {
+			newErrors.height = "Не может быть отрицательным"
+		}
 
-}else{
+		if (formData.weight && Number(formData.weight) < 0) {
+			newErrors.weight = "Не может быть отрицательным"
+		}
 
-alert(data.message)
+		if (formData.chest && Number(formData.chest) < 0) {
+			newErrors.chest = "Не может быть отрицательным"
+		}
 
-}
+		if (formData.waist && Number(formData.waist) < 0) {
+			newErrors.waist = "Не может быть отрицательным"
+		}
 
-})
-.catch(()=>{
-alert("Ошибка соединения с сервером")
-})
+		if (formData.hips && Number(formData.hips) < 0) {
+			newErrors.hips = "Не может быть отрицательным"
+		}
 
-}
+		if (Object.keys(newErrors).length > 0) {
+			setErrors(newErrors)
+			return
+		}
 
-return(
+		const preparedData = {
+			...formData,
 
-<>
-<h2 className={styles.title}>
-Расчёт суточной нормы калорий
-</h2>
+			// строки
+			goal: formData.goal || "",
+			activity: formData.activity ? Number(formData.activity) : 0,
 
-<div className={styles.grid}>
+			// числа
+			height: Number(formData.height) || 0,
+			weight: Number(formData.weight) || 0,
+			chest: Number(formData.chest) || 0,
+			waist: Number(formData.waist) || 0,
+			hips: Number(formData.hips) || 0,
+		}
 
-<div className={styles.field}>
-<label>Пол</label>
+		fetch("http://fitnessfly.local/api/auth/register.php", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(preparedData)
+		})
+			.then(res => res.json())
+			.then(data => {
 
-<div className={styles.radioGroup}>
+				if (data.status === "success") {
+					localStorage.setItem("user_id", data.user_id)
+					window.location = "/home"
+				} else {
+					setErrors({ server: data.message })
+				}
 
-<label>
-<input
-type="radio"
-name="gender"
-value="female"
-checked={formData.gender==="female"}
-onChange={change}
-/>
-Женский
-</label>
+			})
+			.catch(() => {
+				setErrors({ server: "Ошибка соединения с сервером" })
+			})
+	}
 
-<label>
-<input
-type="radio"
-name="gender"
-value="male"
-checked={formData.gender==="male"}
-onChange={change}
-/>
-Мужской
-</label>
+	return (
+		<>
+			<h2 className={styles.title}>
+				Расчёт суточной нормы калорий
+			</h2>
 
-</div>
+			<div className={styles.grid}>
 
-</div>
+				{/* Пол */}
+				<div className={styles.field}>
+					<label>Пол</label>
 
-<div></div>
+					<div className={styles.radioGroup}>
+						<label>
+							<input type="radio" name="gender" value="female" onChange={change} />
+							Женский
+						</label>
 
-<div className={styles.field}>
-<label>Дата рождения</label>
-<input
-type="date"
-name="birthday"
-value={formData.birthday}
-onChange={change}
-/>
-</div>
+						<label>
+							<input type="radio" name="gender" value="male" onChange={change} />
+							Мужской
+						</label>
+					</div>
 
-<div className={styles.field}>
-<label>Рост, см</label>
-<input name="height" value={formData.height} onChange={change}/>
-</div>
+					{errors.gender && <div className={styles.error}>{errors.gender}</div>}
+				</div>
 
-<div className={styles.field}>
-<label>Вес, кг</label>
-<input name="weight" value={formData.weight} onChange={change}/>
-</div>
+				<div></div>
 
-<div className={styles.field}>
-<label>Обхват груди, см</label>
-<input name="chest" value={formData.chest} onChange={change}/>
-</div>
+				{/* Дата рождения */}
+				<div className={styles.field}>
+					<label>Дата рождения</label>
+					<input
+						type="date"
+						name="birthday"
+						value={formData.birthday}
+						onChange={change}
+					/>
+					{errors.birthday && <div className={styles.error}>{errors.birthday}</div>}
+				</div>
 
-<div className={styles.field}>
-<label>Обхват талии, см</label>
-<input name="waist" value={formData.waist} onChange={change}/>
-</div>
+				{/* Рост */}
+				<div className={styles.field}>
+					<label>Рост, см</label>
+					<input name="height" value={formData.height} onChange={change} />
+					{errors.height && <div className={styles.error}>{errors.height}</div>}
+				</div>
 
-<div className={styles.field}>
-<label>Обхват бёдер, см</label>
-<input name="hips" value={formData.hips} onChange={change}/>
-</div>
+				{/* Вес */}
+				<div className={styles.field}>
+					<label>Вес, кг</label>
+					<input name="weight" value={formData.weight} onChange={change} />
+					{errors.weight && <div className={styles.error}>{errors.weight}</div>}
+				</div>
 
-<div className={styles.field}>
-<label>Уровень активности</label>
+				{/* Грудь */}
+				<div className={styles.field}>
+					<label>Обхват груди, см</label>
+					<input name="chest" value={formData.chest} onChange={change} />
+					{errors.chest && <div className={styles.error}>{errors.chest}</div>}
+				</div>
 
-<select name="activity" value={formData.activity} onChange={change}>
-<option value="">Выберите уровень активности</option>
-<option value="1">Сидячий образ жизни</option>
-<option value="2">Небольшая активность</option>
-<option value="3">Умеренная активность</option>
-<option value="4">Высокая активность</option>
-<option value="5">Очень высокая активность</option>
-</select>
+				{/* Талия */}
+				<div className={styles.field}>
+					<label>Обхват талии, см</label>
+					<input name="waist" value={formData.waist} onChange={change} />
+					{errors.waist && <div className={styles.error}>{errors.waist}</div>}
+				</div>
 
-</div>
+				{/* Бёдра */}
+				<div className={styles.field}>
+					<label>Обхват бёдер, см</label>
+					<input name="hips" value={formData.hips} onChange={change} />
+					{errors.hips && <div className={styles.error}>{errors.hips}</div>}
+				</div>
 
-<div className={styles.field}>
-<label>Цель</label>
+				{/* Активность */}
+				<div className={styles.field}>
+					<label>Уровень активности</label>
 
-<select name="goal" value={formData.goal} onChange={change}>
-<option value="">Выберите цель</option>
-<option value="Снижение веса">Снижение веса</option>
-<option value="Поддержание веса">Поддержание веса</option>
-<option value="Набор веса">Набор веса</option>
-</select>
+					<select name="activity" value={formData.activity} onChange={change}>
+						<option value="">Не выбрано</option>
+						<option value="1">Сидячий образ жизни</option>
+						<option value="2">Небольшая активность</option>
+						<option value="3">Умеренная активность</option>
+						<option value="4">Высокая активность</option>
+						<option value="5">Очень высокая активность</option>
+					</select>
+				</div>
 
-</div>
+				{/* Цель */}
+				<div className={styles.field}>
+					<label>Цель</label>
 
-</div>
+					<select name="goal" value={formData.goal} onChange={change}>
+						<option value="">Не выбрано</option>
+						<option value="Снижение веса">Снижение веса</option>
+						<option value="Поддержание веса">Поддержание веса</option>
+						<option value="Набор веса">Набор веса</option>
+					</select>
+				</div>
 
-<button className={styles.button} onClick={submit}>
-Зарегистрироваться
-</button>
+			</div>
 
-</>
+			{/* серверная ошибка */}
+			{errors.server && <div className={styles.error}>{errors.server}</div>}
 
-)
-
+			<button className={styles.button} onClick={submit}>
+				Зарегистрироваться
+			</button>
+		</>
+	)
 }
 
 export default RegisterStep2

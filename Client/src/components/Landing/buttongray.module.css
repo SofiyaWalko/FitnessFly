@@ -22,3 +22,15 @@
     text-align: center;
 }
 
+.primary {
+	background: #5685eb;
+	border: none;
+}
+
+.primary span {
+	color: #fff;
+}
+
+.primary:hover {
+	background: #6a96f5;
+}

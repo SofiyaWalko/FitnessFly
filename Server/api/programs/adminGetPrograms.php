@@ -21,15 +21,14 @@ SELECT
     p.duration_days,
     p.difficulty_level,
     p.image_url,
+    c.category_name AS category,
 
-    -- всего дней
     (
         SELECT COUNT(*)
         FROM program_days pd
         WHERE pd.program_id = p.id
     ) AS total_days,
 
-    -- дней с тренировками
     (
         SELECT COUNT(DISTINCT pd.id)
         FROM program_days pd
@@ -39,6 +38,7 @@ SELECT
     ) AS filled_days
 
 FROM programs p
+JOIN categories c ON c.id = p.category_id
 
 WHERE p.is_archived = 0
 
@@ -76,7 +76,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         "difficulty_level" => $row["difficulty_level"],
         "image_url" => $image,
         "isReady" => $isReady,
-        "status" => $isReady ? "Готова" : "Не готова"
+        "status" => $isReady ? "Готова" : "Не готова",
+        "category" => $row["category"] 
     ];
 }
 

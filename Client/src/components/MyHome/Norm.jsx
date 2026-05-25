@@ -43,7 +43,7 @@ function Norm({ refresh }) {
 				name="Норма воды"
 				count={data.water_ml}
 				unit="мл"
-				note={`${data.water_glasses} стаканов`}
+				note={`${data.water_glasses} стаканов по 250 мл`}
 			/>
 
 			<NormItem

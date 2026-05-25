@@ -1,13 +1,26 @@
-.bigbutton {
-    background: #5685EB;
-    border: none;
-    cursor: pointer;
+.litlebutton {
+    padding: 14px 28px;
+	border-radius: 25px;
+	border: none;
+	background: #5b7cff;
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	transition: 0.2s;
+}
 
-    padding: 12px 40px;
-    border-radius: 100px;
+.litlebutton:hover {
+    background: #4a69e0;
+}
 
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
+.outline {
+	background: transparent;
+	border: 1px solid #d0d5dd;
+	color: #999999;
+}
+
+.outline:hover {
+    background: transparent;
+	background: #f9fafb;
 }
 

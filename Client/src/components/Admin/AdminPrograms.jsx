@@ -7,6 +7,9 @@ import styles from "./adminpanel.module.css";
 
 function AdminPrograms() {
 	const [programs, setPrograms] = useState([]);
+	const [activeTab, setActiveTab] = useState("Все");
+
+	const tabs = ["Все", "Всё тело", "Ноги и ягодицы", "Пресс", "Руки и спина"];
 
 	useEffect(() => {
 		fetch("http://fitnessfly.local/api/programs/adminGetPrograms.php", {
@@ -38,6 +41,14 @@ function AdminPrograms() {
 			});
 	}
 
+	/* ======================
+	   ФИЛЬТР
+	====================== */
+	const filteredPrograms =
+		activeTab === "Все"
+			? programs
+			: programs.filter((p) => p.category === activeTab);
+
 	return (
 		<>
 			<div className={styles.header}>
@@ -52,8 +63,26 @@ function AdminPrograms() {
 				to="/adminpanel/programs/create"
 			/>
 
+			{/*ТАБЫ */}
+			<div className={styles.tabs}>
+				{tabs.map((tab) => (
+					<button
+						key={tab}
+						onClick={() => setActiveTab(tab)}
+						className={
+							activeTab === tab
+								? `${styles.tab} ${styles.active}`
+								: styles.tab
+						}
+					>
+						{tab}
+					</button>
+				))}
+			</div>
+
+			{/*КАРТОЧКИ */}
 			<div className={styles.programs}>
-				{programs.map((program) => (
+				{filteredPrograms.map((program) => (
 					<AdminProgramCard
 						key={program.id}
 						id={program.id}

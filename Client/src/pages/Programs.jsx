@@ -7,6 +7,15 @@ import Footer from "../components/Footer";
 
 function Programs() {
 	const [programs, setPrograms] = useState([]);
+	const [activeTab, setActiveTab] = useState("Все");
+
+	const tabs = [
+		"Все",
+		"Всё тело",
+		"Ноги и ягодицы",
+		"Пресс",
+		"Руки и спина"
+	];
 
 	useEffect(() => {
 		const user_id = localStorage.getItem("user_id");
@@ -24,16 +33,43 @@ function Programs() {
 			});
 	}, []);
 
+	/* ======================
+	   ФИЛЬТР
+	====================== */
+	const filteredPrograms =
+		activeTab === "Все"
+			? programs
+			: programs.filter((p) => p.category === activeTab);
+
 	return (
 		<>
 			<Header />
+
 			<div className={styles.container}>
 				<div className={styles.programspage}>
 					<h2 className={styles.title}>Программы тренировок</h2>
 				</div>
 
+				{/*ТАБЫ */}
+				<div className={styles.tabs}>
+					{tabs.map((tab) => (
+						<button
+							key={tab}
+							onClick={() => setActiveTab(tab)}
+							className={
+								activeTab === tab
+									? `${styles.tab} ${styles.active}`
+									: styles.tab
+							}
+						>
+							{tab}
+						</button>
+					))}
+				</div>
+
+				{/*КАРТОЧКИ */}
 				<div className={styles.programs_cards}>
-					{programs.map((program) => (
+					{filteredPrograms.map((program) => (
 						<ProgramCard
 							key={program.id}
 							id={program.id}

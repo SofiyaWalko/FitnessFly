@@ -21,7 +21,7 @@ SELECT
     waist,
     chest,
     hips,
-    DATE_FORMAT(created_at, '%d %b') as date
+    created_at
 FROM body_parameters
 WHERE user_id = $user_id
 ORDER BY created_at ASC
@@ -34,7 +34,7 @@ $stats = [];
 while($row = mysqli_fetch_assoc($result)){
 
     $stats[] = [
-        "date"=>$row['date'],
+        "date"=>$row['created_at'], // 🔥 теперь полная дата
         "weight"=>floatval($row['weight']),
         "waist"=>floatval($row['waist']),
         "chest"=>floatval($row['chest']),

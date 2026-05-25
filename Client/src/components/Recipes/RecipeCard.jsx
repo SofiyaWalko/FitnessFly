@@ -173,6 +173,7 @@ function RecipeCard({
 					<ButtonGray
 						text="Смотреть рецепт"
 						to={`/recipe/${id}`}
+						className={styles.primary}
 					/>
 
 				) : (

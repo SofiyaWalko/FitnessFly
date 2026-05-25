@@ -29,9 +29,13 @@
 
 	position: relative;
 
-	/* 🔥 ВОТ ЭТО ГЛАВНОЕ */
+
 	max-height: 80vh;
-	overflow-y: auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: start;
 }
 
 .table {
@@ -50,4 +54,27 @@
 	position: sticky;
 	top: 0;
 	background: white;
+}
+
+.button_edit {
+	border: 1px solid #979797;
+	padding: 4px 8px;
+	background:none;
+	border-radius: 100px;
+	color: #979797;
+	cursor: pointer;
+}
+
+.table_wrapper {
+	width: 100%;
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+
+.table thead {
+	position: sticky;
+	top: 0;
+	background: white;
+	z-index: 2;
 }

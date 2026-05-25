@@ -32,8 +32,8 @@
 	padding: 0 16px;
 
 	border-radius: 12px;
-	border: 1px solid #D8D8E8;
-	background: #F3F3F8;
+	border: 1px solid #d8d8e8;
+	background: #f3f3f8;
 
 	font-size: 14px;
 }
@@ -59,15 +59,16 @@
 
 	cursor: pointer;
 
-	background: linear-gradient(
-		90deg,
-		#38A9D6 0%,
-		#3A7BD5 50%,
-		#3B1DBB 100%
-	);
+	background: linear-gradient(90deg, #38a9d6 0%, #3a7bd5 50%, #3b1dbb 100%);
 }
 
 .login {
 	margin-top: 16px;
 	font-size: 14px;
+}
+
+.error {
+	color: #ff4d4f;
+	font-size: 12px;
+	margin-top: 4px;
 }

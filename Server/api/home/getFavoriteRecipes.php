@@ -26,6 +26,7 @@ SELECT
     r.title,
     r.image_url,
     r.points_price,
+    r.calories,
     c.category_name,
     rp.id as is_purchased
 FROM favorites_rc f
@@ -51,7 +52,8 @@ while($row = mysqli_fetch_assoc($result)){
         "category"=>$row["category_name"],
         "points"=>$row["points_price"],
         "image"=>"http://fitnessfly.local/".$row["image_url"],
-        "isPurchased"=>$row["is_purchased"] ? true : false
+        "isPurchased"=>$row["is_purchased"] ? true : false,
+        "calories" => intval($row["calories"])
     ];
 
 }

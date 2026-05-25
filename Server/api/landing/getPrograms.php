@@ -26,6 +26,7 @@ JOIN categories c ON p.category_id = c.id
 LEFT JOIN user_programs up 
     ON up.program_id = p.id " .
     ($user_id ? "AND up.user_id = $user_id" : "") . "
+WHERE p.is_archived = 0
 ORDER BY p.id DESC
 LIMIT 4
 ";

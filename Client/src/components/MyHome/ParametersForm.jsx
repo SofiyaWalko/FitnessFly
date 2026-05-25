@@ -52,40 +52,38 @@ function ParametersForm({ closeForm, onSuccess }) {
 				<h2>Контроль параметров</h2>
 
 				<div className={styles.form_grid}>
-					<input
-						name="height"
-						placeholder="Рост, см"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Рост, см</label>
+						<input name="height" onChange={handleChange} />
+					</div>
 
-					<input
-						name="weight"
-						placeholder="Вес, кг"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Вес, кг</label>
+						<input name="weight" onChange={handleChange} />
+					</div>
 
-					<input
-						name="waist"
-						placeholder="Обхват талии"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Обхват талии, см</label>
+						<input name="waist" onChange={handleChange} />
+					</div>
 
-					<input
-						name="chest"
-						placeholder="Обхват груди"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Обхват груди, см</label>
+						<input name="chest" onChange={handleChange} />
+					</div>
 
-					<input
-						name="hips"
-						placeholder="Обхват бёдер"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Обхват бёдер, см</label>
+						<input name="hips" onChange={handleChange} />
+					</div>
 				</div>
 
-				<LitleButton onClick={submitForm}>Сохранить</LitleButton>
-
-				<LitleButton onClick={closeForm}>Закрыть</LitleButton>
+				<div className={styles.buttons}>
+					<LitleButton onClick={submitForm}>Сохранить</LitleButton>
+					<LitleButton variant="outline" onClick={closeForm}>
+						Закрыть
+					</LitleButton>
+				</div>
 			</div>
 		</div>
 	);

@@ -7,6 +7,13 @@ import styles from "./recipes.module.css";
 
 function Recipes() {
 	const [recipes, setRecipes] = useState([]);
+	const [activeTab, setActiveTab] = useState("Все");
+	const tabs = ["Все", "Завтраки", "Обеды", "Ужины", "Десерты"];
+
+	const filteredRecipes =
+		activeTab === "Все"
+			? recipes
+			: recipes.filter((r) => r.category === activeTab);
 
 	useEffect(() => {
 		const user_id = localStorage.getItem("user_id");
@@ -33,8 +40,24 @@ function Recipes() {
 					<h2 className={styles.title}>Рецепты</h2>
 				</div>
 
+				<div className={styles.tabs}>
+					{tabs.map((tab) => (
+						<button
+							key={tab}
+							onClick={() => setActiveTab(tab)}
+							className={
+								activeTab === tab
+									? `${styles.tab} ${styles.active}`
+									: styles.tab
+							}
+						>
+							{tab}
+						</button>
+					))}
+				</div>
+
 				<div className={styles.recipes_cards}>
-					{recipes.map((recipe) => (
+					{filteredRecipes.map((recipe) => (
 						<RecipeCard
 							key={recipe.id}
 							id={recipe.id}

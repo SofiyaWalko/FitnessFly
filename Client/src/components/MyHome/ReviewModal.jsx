@@ -53,48 +53,53 @@ function ReviewModal({ program, onClose, onSuccess }) {
 			<div className={styles.modal_content}>
 				<h2>Мой отзыв на программу: "{program.title}"</h2>
 
-				<p>На сколько звёзд вы оцениваете программу?</p>
+				<div className={styles.item_container}>
+					<p>На сколько звёзд вы оцениваете программу?</p>
 
-				<div className={styles.stars}>
-					{[1, 2, 3, 4, 5].map((starValue) => (
-						<img
-							key={starValue}
-							src={star}
-							className={
-								(hover || rating) >= starValue
-									? `${styles.star} ${styles.starActive}`
-									: styles.star
-							}
-							onClick={() => setRating(starValue)}
-							onMouseEnter={() => setHover(starValue)}
-							onMouseLeave={() => setHover(0)}
-						/>
-					))}
+					<div className={styles.stars}>
+						{[1, 2, 3, 4, 5].map((starValue) => (
+							<img
+								key={starValue}
+								src={star}
+								className={
+									(hover || rating) >= starValue
+										? `${styles.star} ${styles.starActive}`
+										: styles.star
+								}
+								onClick={() => setRating(starValue)}
+								onMouseEnter={() => setHover(starValue)}
+								onMouseLeave={() => setHover(0)}
+							/>
+						))}
+					</div>
 				</div>
 
-				<p>Что Вы можете сказать о программе?</p>
+				<div className={styles.item_container}>
+					<p>Что Вы можете сказать о программе?</p>
 
-				<textarea
-					className={styles.textarea}
-					placeholder="Ваш отзыв..."
-					value={text}
-					maxLength={MAX_LENGTH}
-					onChange={(e) => setText(e.target.value)}
-				/>
+					<textarea
+						className={styles.textarea}
+						placeholder="Ваш отзыв..."
+						value={text}
+						maxLength={MAX_LENGTH}
+						onChange={(e) => setText(e.target.value)}
+					/>
 
-				<div
-					className={
-						text.length > MAX_LENGTH - 50
-							? `${styles.counter} ${styles.counterWarning}`
-							: styles.counter
-					}
-				>
-					{text.length} / {MAX_LENGTH}
+					<div
+						className={
+							text.length > MAX_LENGTH - 50
+								? `${styles.counter} ${styles.counterWarning}`
+								: styles.counter
+						}
+					>
+						{text.length} / {MAX_LENGTH}
+					</div>
 				</div>
 
-				<LitleButton onClick={submitReview}>Отправить</LitleButton>
-
-				<LitleButton onClick={onClose}>Закрыть</LitleButton>
+				<div className={styles.buttons}>
+					<LitleButton onClick={submitReview}>Отправить</LitleButton>
+					<LitleButton variant="outline" onClick={onClose}>Закрыть</LitleButton>
+				</div>
 			</div>
 		</div>
 	);

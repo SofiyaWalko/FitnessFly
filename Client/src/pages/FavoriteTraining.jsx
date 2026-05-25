@@ -47,9 +47,9 @@ function FavoriteTraining() {
 						id={training.id}
 						title={training.title}
 						calories={training.calories}
-						time={training.duration}
+						time={training.time}
 						points={training.points}
-						heartRate={training.heart_rate}
+						heartRate={training.heartRate}
 						image={training.image}
 						removeCard={removeCard}
 						isFavoriteInitial={true}

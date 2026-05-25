@@ -39,8 +39,8 @@ function sendEmail($to, $title, $message)
         $mail->SMTPAuth = true;
         $mail->Username = 'svalko940@gmail.com';
         $mail->Password = 'upkfaxbkaqomnjpt';
-        $mail->SMTPSecure = 'ssl';
-$mail->Port = 465;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
 
         $mail->SMTPDebug = 3;
 $mail->Debugoutput = function($str, $level) {

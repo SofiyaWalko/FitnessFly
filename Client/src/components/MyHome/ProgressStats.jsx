@@ -13,48 +13,84 @@ const periods = [
 
 export default function ProgressStats({ refresh }) {
 
-  const [data,setData] = useState([]);
-  const [period,setPeriod] = useState("all");
-  const [metric,setMetric] = useState("weight");
+  const [data, setData] = useState([]);
+  const [period, setPeriod] = useState("all");
+  const [metric, setMetric] = useState("weight");
 
-  function loadStats(){
-
+  function loadStats() {
     const user_id = localStorage.getItem("user_id");
 
-    fetch("http://fitnessfly.local/api/home/getProgressStats.php",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({user_id})
+    fetch("http://fitnessfly.local/api/home/getProgressStats.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id })
     })
-    .then(res=>res.json())
-    .then(data=>setData(data));
-
+      .then(res => res.json())
+      .then(setData);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     loadStats();
-  },[refresh]);
+  }, [refresh]);
 
-  const filteredData = useMemo(()=>{
+  /* ======================
+     СОРТИРОВКА
+  ====================== */
+  const sortedData = useMemo(() => {
+    return [...data].sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
+  }, [data]);
 
-    switch(period){
-      case "week":
-        return data.slice(-7);
-      case "month":
-        return data.slice(-30);
-      case "3month":
-        return data.slice(-90);
-      case "6month":
-        return data.slice(-180);
-      case "year":
-        return data.slice(-365);
-      default:
-        return data;
-    }
+  /* ======================
+     ФИЛЬТР ПО ПЕРИОДУ
+  ====================== */
+  const filteredData = useMemo(() => {
+    if (!sortedData.length) return [];
 
-  },[data,period]);
+    const now = new Date();
+
+    return sortedData.filter(item => {
+      const itemDate = new Date(item.date);
+
+      switch (period) {
+
+        case "week": {
+          const d = new Date(now);
+          d.setDate(d.getDate() - 7);
+          return itemDate >= d;
+        }
+
+        case "month": {
+          const d = new Date(now);
+          d.setMonth(d.getMonth() - 1);
+          return itemDate >= d;
+        }
+
+        case "3month": {
+          const d = new Date(now);
+          d.setMonth(d.getMonth() - 3);
+          return itemDate >= d;
+        }
+
+        case "6month": {
+          const d = new Date(now);
+          d.setMonth(d.getMonth() - 6);
+          return itemDate >= d;
+        }
+
+        case "year": {
+          const d = new Date(now);
+          d.setFullYear(d.getFullYear() - 1);
+          return itemDate >= d;
+        }
+
+        default:
+          return true;
+      }
+    });
+
+  }, [sortedData, period]);
 
   return (
     <div className={styles.wrapper_chart}>
@@ -62,11 +98,11 @@ export default function ProgressStats({ refresh }) {
       <h3>Статистика изменений</h3>
 
       <div className={styles.tabs}>
-        {periods.map((p)=>(
+        {periods.map((p) => (
           <button
             key={p.key}
-            className={`${styles.tab} ${period===p.key ? styles.activeTab : ""}`}
-            onClick={()=>setPeriod(p.key)}
+            className={`${styles.tab} ${period === p.key ? styles.activeTab : ""}`}
+            onClick={() => setPeriod(p.key)}
           >
             {p.label}
           </button>
@@ -76,24 +112,28 @@ export default function ProgressStats({ refresh }) {
       <div className={styles.chartCard}>
 
         <div className={styles.chartHeader}>
-
           <select
             className={styles.select}
             value={metric}
-            onChange={(e)=>setMetric(e.target.value)}
+            onChange={(e) => setMetric(e.target.value)}
           >
             <option value="weight">Вес</option>
             <option value="waist">Обхват талии</option>
             <option value="chest">Обхват груди</option>
             <option value="hips">Обхват бёдер</option>
           </select>
-
         </div>
 
-        <ProgressChart
-          data={filteredData}
-          metric={metric}
-        />
+        {filteredData.length > 0 ? (
+          <ProgressChart
+            data={filteredData}
+            metric={metric}
+          />
+        ) : (
+          <div className={styles.empty}>
+            Нет данных за выбранный период
+          </div>
+        )}
 
       </div>
 

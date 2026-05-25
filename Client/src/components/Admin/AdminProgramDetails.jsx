@@ -73,14 +73,49 @@ function AdminProgramDetails() {
 			});
 	}
 
+	function handleNotify() {
+		if (
+			!window.confirm(
+				`Оповестить пользователей о программе "${program.title}"?`,
+			)
+		)
+			return;
+
+		fetch(
+			"http://fitnessfly.local/api/notifications/createNotification.php",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					title: "Новая программа",
+					message: `Добавлена новая программа тренировок "${program.title}"`,
+				}),
+			},
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.success) {
+					alert("Уведомление отправлено");
+				}
+			});
+	}
+
 	return (
 		<>
 			<div className={styles.header}>
 				<h2 className={styles.title}>{program.title}</h2>
 			</div>
 
-			<div onClick={handleAddDay}>
-				<AddButton text="Добавить день" />
+			<div className={styles.qwik_actions}>
+				<div onClick={handleAddDay}>
+					<AddButton text="Добавить день" />
+				</div>
+
+				<button className={styles.notifyBtn} onClick={handleNotify}>
+					Оповестить пользователей
+				</button>
 			</div>
 
 			<div className={styles.days}>

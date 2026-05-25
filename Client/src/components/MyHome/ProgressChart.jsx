@@ -24,16 +24,58 @@ export default function ProgressChart({ data, metric }) {
 	const yMin = Math.floor(minValue - padding);
 	const yMax = Math.ceil(maxValue + padding);
 
+	const formatDate = (date) => {
+	const d = new Date(date);
+
+	return new Intl.DateTimeFormat("ru-RU", {
+		day: "numeric",
+		month: "short",
+	}).format(d);
+};
+
+	const CustomTooltip = ({ active, payload, label }) => {
+		if (!active || !payload || !payload.length) return null;
+
+		const date = new Date(label);
+
+		const formattedDate = new Intl.DateTimeFormat("ru-RU", {
+			day: "numeric",
+			month: "short",
+		}).format(date);
+
+		return (
+			<div
+				style={{
+					background: "#fff",
+					border: "1px solid #ddd",
+					padding: "10px 14px",
+					borderRadius: "8px",
+				}}
+			>
+				<div style={{ marginBottom: 6 }}>{formattedDate}</div>
+
+				<div style={{ color: "#4F7DF3", fontWeight: 500 }}>
+					значение: {payload[0].value}
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<div className={styles.chart}>
 			<ResponsiveContainer width="100%" height={300}>
-				<AreaChart data={chartData} >
+				<AreaChart data={chartData}>
 					<XAxis
 						dataKey="date"
+						tickFormatter={formatDate}
 						axisLine={false}
 						tickLine={false}
-						tick={{ fill: "#1C2D52", fontSize: 16, fontWeight: 500 }}
-                        tickMargin={10}
+						tick={{
+							fill: "#1C2D52",
+							fontSize: 16,
+							fontWeight: 500,
+						}}
+						tickMargin={10}
 					/>
 
 					<YAxis
@@ -41,14 +83,18 @@ export default function ProgressChart({ data, metric }) {
 						tickCount={5}
 						axisLine={false}
 						tickLine={false}
-						tick={{ fill: "#1C2D52", fontSize: 16, fontWeight: 500 }}
+						tick={{
+							fill: "#1C2D52",
+							fontSize: 16,
+							fontWeight: 500,
+						}}
 						tickFormatter={(v) =>
 							`${v}${metric === "weight" ? " кг" : " см"}`
 						}
-                        tickMargin={10}
+						tickMargin={10}
 					/>
 
-					<Tooltip />
+					<Tooltip content={<CustomTooltip />} />
 
 					<defs>
 						<linearGradient

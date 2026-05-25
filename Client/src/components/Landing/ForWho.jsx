@@ -6,6 +6,10 @@ import icon3 from "../../assets/images/icon3.png"
 import icon4 from "../../assets/images/icon4.png" 
 
 function ForWho() {
+
+    const user_id = localStorage.getItem("user_id");
+	const linkTo = user_id ? "/programs" : "/register";
+
 	return (
         <section className={styles.forwho}>
               <div className={styles.container}>   
@@ -30,7 +34,7 @@ function ForWho() {
                         <span>Нужна мотивация <br />и структура</span>
                     </div>                   
                 </div>  
-                <Link to="/register" className={styles.button_container}>
+                <Link to={linkTo} className={styles.button_container}>
                     <button className={styles.forwhobutton}>Присоединиться</button>
                 </Link> 
                 </div>      

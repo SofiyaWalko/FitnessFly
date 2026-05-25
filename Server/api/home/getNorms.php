@@ -38,11 +38,6 @@ LIMIT 1
 
 $result = mysqli_query($link, $query);
 
-if(!$result){
-    echo json_encode(["error"=>"query error"]);
-    exit;
-}
-
 $row = mysqli_fetch_assoc($result);
 
 if(!$row){
@@ -57,13 +52,35 @@ $weight = floatval($row['weight']);
 $height = floatval($row['height']);
 $activity = $row['activity_level'];
 
-/* возраст */
+/* ======================
+   ПРОВЕРКА ДАННЫХ
+====================== */
+
+if(!$weight || !$height || !$activity){
+
+    echo json_encode([
+        "calories" => 0,
+        "goal_note" => "Недостаточно данных",
+        "water_ml" => 0,
+        "water_glasses" => 0,
+        "bmi" => 0,
+        "bmi_note" => "Недостаточно данных"
+    ]);
+
+    exit;
+}
+
+/* ======================
+   ВОЗРАСТ
+====================== */
 
 $birthDate = new DateTime($birth_day);
 $today = new DateTime();
 $age = $today->diff($birthDate)->y;
 
-/* BMR */
+/* ======================
+   BMR
+====================== */
 
 if($gender == "male"){
     $bmr = 88.36 + (13.4 * $weight) + (4.8 * $height) - (5.7 * $age);
@@ -72,7 +89,9 @@ else{
     $bmr = 447.6 + (9.2 * $weight) + (3.1 * $height) - (4.3 * $age);
 }
 
-/* Activity multiplier */
+/* ======================
+   АКТИВНОСТЬ
+====================== */
 
 $mult = 1.2;
 
@@ -100,9 +119,15 @@ switch($activity){
 
 }
 
+/* ======================
+   КАЛОРИИ
+====================== */
+
 $calories = $bmr * $mult;
 
-/* Goal */
+/* ======================
+   ЦЕЛЬ
+====================== */
 
 $goal_note = "Норма";
 
@@ -118,18 +143,18 @@ switch($goal){
         $goal_note = "Профицит 15%";
         break;
 
-    case "Поддержание веса":
-        $goal_note = "Норма";
-        break;
-
 }
 
-/* Water */
+/* ======================
+   ВОДА
+====================== */
 
 $water_ml = $weight * 35;
 $water_glasses = round($water_ml / 250);
 
-/* BMI */
+/* ======================
+   BMI
+====================== */
 
 $bmi = $weight / pow(($height / 100), 2);
 
@@ -143,7 +168,9 @@ elseif($bmi <= 35) $bmi_note = "Ожирение 1 степени";
 elseif($bmi <= 40) $bmi_note = "Ожирение 2 степени";
 else $bmi_note = "Ожирение 3 степени";
 
-/* ответ */
+/* ======================
+   ОТВЕТ
+====================== */
 
 $response = [
     "calories" => round($calories),

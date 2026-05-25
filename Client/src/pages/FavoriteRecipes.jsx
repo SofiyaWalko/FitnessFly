@@ -6,6 +6,13 @@ import RecipeCard from "../components/Recipes/RecipeCard";
 
 function FavoriteRecipes() {
 	const [recipes, setRecipes] = useState([]);
+	const [activeTab, setActiveTab] = useState("Все");
+	const tabs = ["Все", "Завтраки", "Обеды", "Ужины", "Десерты"];
+
+	const filteredRecipes =
+		activeTab === "Все"
+			? recipes
+			: recipes.filter((r) => r.category === activeTab);
 
 	useEffect(() => {
 		const user_id = localStorage.getItem("user_id");
@@ -38,14 +45,31 @@ function FavoriteRecipes() {
 				</div>
 			</div>
 
+			<div className={styles.tabs}>
+				{tabs.map((tab) => (
+					<button
+						key={tab}
+						onClick={() => setActiveTab(tab)}
+						className={
+							activeTab === tab
+								? `${styles.tab} ${styles.active}`
+								: styles.tab
+						}
+					>
+						{tab}
+					</button>
+				))}
+			</div>
+
 			<div className={styles.recipes}>
-				{recipes.map((recipe) => (
+				{filteredRecipes.map((recipe) => (
 					<RecipeCard
 						key={recipe.id}
 						id={recipe.id}
 						title={recipe.title}
 						category={recipe.category}
 						points={recipe.points}
+						calories={recipe.calories}
 						image={recipe.image}
 						removeCard={removeCard}
 						isFavoriteInitial={true}

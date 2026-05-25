@@ -1,37 +1,39 @@
-import { Link } from "react-router-dom"
-import styles from "./hero.module.css"
-import girl from "../../assets/images/girl.png"
+import { Link } from "react-router-dom";
+import styles from "./hero.module.css";
+import girl from "../../assets/images/girl.png";
 
 function Hero() {
-  return (
-    <section className={styles.hero}>
-      <div className={styles.container}>
+	const user_id = localStorage.getItem("user_id");
+	const linkTo = user_id ? "/programs" : "/register";
 
-        <div className={styles.content}>
+	return (
+		<section className={styles.hero}>
+			<div className={styles.container}>
+				<div className={styles.content}>
+					<h1 className={styles.title}>
+						Твоё идеальное тело начинается здесь
+					</h1>
 
-          <h1 className={styles.title}>
-            Твоё идеальное тело начинается здесь
-          </h1>
+					<p className={styles.text}>
+						Веб-платформа для девушек с программами тренировок,
+						рецептами и удобным трекером прогресса
+					</p>
 
-          <p className={styles.text}>
-            Веб-платформа для девушек с программами тренировок, рецептами и удобным трекером прогресса
-          </p>
+					<Link to={linkTo} className={styles.actions}>
+						<button className={styles.startBtn}>
+							<span className={styles.buttonText}>
+								Начать тренироваться
+							</span>
+						</button>
+					</Link>
+				</div>
 
-          <Link to="/register" className={styles.actions}>
-            <button className={styles.startBtn}>
-              <span className={styles.buttonText}>Начать тренироваться</span>
-            </button>
-          </Link>
-
-        </div>
-
-        <div className={styles.imageWrapper}>
-          <img src={girl} alt="fitness-girl" />
-        </div>
-
-      </div>
-    </section>
-  )
+				<div className={styles.imageWrapper}>
+					<img src={girl} alt="fitness-girl" />
+				</div>
+			</div>
+		</section>
+	);
 }
 
-export default Hero
+export default Hero;

@@ -73,37 +73,46 @@ while ($day = mysqli_fetch_assoc($daysResult)) {
     /* ======================
        3. ТРЕНИРОВКИ + completed
     ====================== */
-    $trainingsQuery = "
-    SELECT 
-        t.id,
-        t.title,
-        t.duration_minutes,
-        t.calories,
-        t.heart_rate,
-        t.points_reward,
-        t.image_url,
-        t.video_url,
-        utp.id as completed,
-        f.id as is_favorite
-    FROM program_day_trainings pdt
-    JOIN trainings t ON t.id = pdt.training_id
+$trainingsQuery = "
+SELECT 
+    t.id,
+    t.title,
+    t.duration_minutes,
+    t.calories,
+    t.heart_rate,
+    t.points_reward,
+    t.image_url,
+    t.video_url,
 
-    LEFT JOIN user_program_day upd 
-        ON upd.day_id = pdt.program_day_id
+    utp.id as completed,
 
-    LEFT JOIN user_programs up 
-        ON up.id = upd.user_program_id AND up.user_id = $user_id
+    f.id as is_favorite
 
-    LEFT JOIN user_training_progress utp 
-        ON utp.training_id = t.id 
-        AND utp.user_program_day_id = upd.id
+FROM program_day_trainings pdt
 
-    LEFT JOIN favorites_tr f 
-    ON f.training_id = t.id AND f.user_id = $user_id
+JOIN trainings t 
+    ON t.id = pdt.training_id
 
-    WHERE pdt.program_day_id = $day_id
-    ORDER BY pdt.order_number
-    ";
+LEFT JOIN user_programs up
+    ON up.program_id = $program_id
+    AND up.user_id = $user_id
+
+LEFT JOIN user_program_day upd
+    ON upd.user_program_id = up.id
+    AND upd.day_id = pdt.program_day_id
+
+LEFT JOIN user_training_progress utp
+    ON utp.training_id = t.id
+    AND utp.user_program_day_id = upd.id
+
+LEFT JOIN favorites_tr f
+    ON f.training_id = t.id
+    AND f.user_id = $user_id
+
+WHERE pdt.program_day_id = $day_id
+
+ORDER BY pdt.order_number
+";
 
     $trainingsResult = mysqli_query($link, $trainingsQuery);
 

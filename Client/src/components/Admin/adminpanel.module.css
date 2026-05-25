@@ -1,4 +1,4 @@
-.adminpanel {  
+.adminpanel {
 	padding: 0 0 100px 0;
 }
 
@@ -8,38 +8,37 @@
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .header .buttons {
-    display: flex;
-    gap: 20;
-    align-items: center;
+	display: flex;
+	gap: 20;
+	align-items: center;
 }
 
 .title {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .tabbig {
-    margin: 40px 0 50px 0;
+	margin: 40px 0 50px 0;
 
-    display: flex;
-    gap: 20px;
+	display: flex;
+	gap: 20px;
 }
 
 .recipes {
-    display: flex;
+	display: flex;
 	gap: 10px;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 .programs {
-    display: flex;
+	display: flex;
 	gap: 10px;
-    flex-wrap: wrap;
-
+	flex-wrap: wrap;
 }
 
 .trainings {
@@ -58,8 +57,8 @@
 	font-family: "Manrope", sans-serif;
 	padding: 10px 18px;
 	border-radius: 20px;
-	border: 1px solid #D8D8E8;
-	background: #F3F3F8;
+	border: 1px solid #d8d8e8;
+	background: #f3f3f8;
 	cursor: pointer;
 	font-size: 14px;
 	color: #969696;
@@ -70,7 +69,7 @@
 	padding: 10px 18px;
 	border-radius: 20px;
 	border: none;
-	background: #5685EB;
+	background: #5685eb;
 	color: white;
 	cursor: pointer;
 	font-size: 14px;
@@ -93,7 +92,7 @@
 	height: 100px;
 	background: #fff;
 	border-radius: 16px;
-	border: 1px solid #EAEAFF;
+	border: 1px solid #eaeaff;
 
 	display: flex;
 	align-items: center;
@@ -105,9 +104,8 @@
 	transition: all 0.2s ease;
 }
 
-
 .card:hover {
-	border: 2px solid #5685EB;
+	border: 2px solid #5685eb;
 	transform: translateY(-2px);
 }
 
@@ -129,7 +127,7 @@
 
 	border: none;
 	border-radius: 50%;
-	background: #F3F3F3;
+	background: #f3f3f3;
 	color: #888;
 
 	cursor: pointer;
@@ -143,6 +141,88 @@
 }
 
 .deleteBtn:hover {
-	background: #5685EB;
+	background: #5685eb;
 	color: #fff;
+}
+
+.r_tabs {
+	display: flex;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.r_tab {
+	padding: 8px 18px;
+	border-radius: 999px;
+	border: 1px solid #d0d5dd;
+	background: transparent;
+	color: #979797;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.r_tab:hover {
+	background: #f2f4f7;
+}
+
+.r_active {
+	background: #5685eb;
+	color: white;
+	border: none;
+}
+
+.r_active:hover {
+	background: #5685eb;
+	color: white;
+	border: none;
+}
+
+.notifyBtn {
+	background: #5685EB;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 100px;
+}
+
+.qwik_actions{
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+.notifyBtn:hover {
+	background: #5685eb;
+}
+
+.tabs {
+	display: flex;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.tab {
+	padding: 8px 18px;
+	border-radius: 999px;
+	border: 1px solid #d0d5dd;
+	background: transparent;
+	color: #979797;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.tab:hover {
+	background: #f2f4f7;
+}
+
+.active {
+	background: #5685EB;
+	color: white;
+	border: none;
+}
+
+.active:hover {
+    background: #5685EB;
+	color: white;
+	border: none;
 }

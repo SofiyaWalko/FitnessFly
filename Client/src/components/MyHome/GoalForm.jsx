@@ -52,51 +52,92 @@ function GoalForm({ closeForm, onSuccess }) {
 				<h2>Расчёт суточной нормы калорий</h2>
 
 				<div className={styles.form_grid}>
-					<input
-						name="height"
-						placeholder="Рост, см"
-						onChange={handleChange}
-					/>
-					<input
-						name="weight"
-						placeholder="Вес, кг"
-						onChange={handleChange}
-					/>
-					<input
-						name="waist"
-						placeholder="Обхват талии"
-						onChange={handleChange}
-					/>
-					<input
-						name="chest"
-						placeholder="Обхват груди"
-						onChange={handleChange}
-					/>
-					<input
-						name="hips"
-						placeholder="Обхват бёдер"
-						onChange={handleChange}
-					/>
+					<div className={styles.field}>
+						<label>Рост, см</label>
+						<input
+							name="height"
+							value={form.height}
+							onChange={handleChange}
+						/>
+					</div>
 
-					<select name="activity" onChange={handleChange}>
-						<option value="">Уровень активности</option>
-						<option value="1">Сидячий образ жизни</option>
-						<option value="2">Небольшая активность</option>
-						<option value="3">Умеренная активность</option>
-						<option value="4">Высокая активность</option>
-						<option value="5">Очень высокая активность</option>
-					</select>
+					<div className={styles.field}>
+						<label>Вес, кг</label>
+						<input
+							name="weight"
+							value={form.weight}
+							onChange={handleChange}
+						/>
+					</div>
 
-					<select name="goal" onChange={handleChange}>
-						<option value="">Цель</option>
-						<option value="loss">Снизить вес</option>
-						<option value="gain">Набрать массу</option>
-						<option value="maintain">Поддержание веса</option>
-					</select>
+					<div className={styles.field}>
+						<label>Обхват талии, см</label>
+						<input
+							name="waist"
+							value={form.waist}
+							onChange={handleChange}
+						/>
+					</div>
+
+					<div className={styles.field}>
+						<label>Обхват груди, см</label>
+						<input
+							name="chest"
+							value={form.chest}
+							onChange={handleChange}
+						/>
+					</div>
+
+					<div className={styles.field}>
+						<label>Обхват бёдер, см</label>
+						<input
+							name="hips"
+							value={form.hips}
+							onChange={handleChange}
+						/>
+					</div>
+
+					<div className={styles.field}>
+						<label>Уровень активности</label>
+						<select
+							name="activity"
+							value={form.activity}
+							onChange={handleChange}
+						>
+							<option value="">Не выбрано</option>
+							<option value="1">Сидячий образ жизни</option>
+							<option value="2">Небольшая активность</option>
+							<option value="3">Умеренная активность</option>
+							<option value="4">Высокая активность</option>
+							<option value="5">Очень высокая активность</option>
+						</select>
+					</div>
+
+					<div className={styles.field}>
+						<label>Цель</label>
+						<select
+							name="goal"
+							value={form.goal}
+							onChange={handleChange}
+						>
+							<option value="">Не выбрано</option>
+							<option value="Снижение веса">Снизить вес</option>
+							<option value="Набор веса">Набрать массу</option>
+							<option value="Поддержание веса">
+								Поддержание веса
+							</option>
+						</select>
+					</div>
 				</div>
 
-				<LitleButton onClick={submitForm}>Рассчитать</LitleButton>
-				<LitleButton onClick={closeForm}>Закрыть</LitleButton>
+				<div className={styles.modal_buttons}></div>
+
+				<div className={styles.buttons}>
+					<LitleButton onClick={submitForm}>Рассчитать</LitleButton>
+					<LitleButton variant="outline" onClick={closeForm}>
+						Закрыть
+					</LitleButton>
+				</div>
 			</div>
 		</div>
 	);

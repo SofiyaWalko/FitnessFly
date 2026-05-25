@@ -41,6 +41,7 @@ function RecipeCards() {
                             title={recipe.title}
                             category={recipe.category}
                             points={recipe.points_price}
+                            calories={recipe.calories}
                             image={recipe.image_url}
                             isFavoriteInitial={recipe.isFavorite}
                         />

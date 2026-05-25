@@ -19,25 +19,25 @@ SELECT
     p.difficulty_level,
     p.image_url,
     c.category_name AS category,
-    up.started_at,
-    up.current_day,
 
-    -- выполненные дни
+    " . ($user_id ? "up.started_at" : "NULL") . " AS started_at,
+    " . ($user_id ? "up.current_day" : "NULL") . " AS current_day,
+
+    " . ($user_id ? "
     (
         SELECT COUNT(*)
         FROM user_program_day upd2
         WHERE upd2.user_program_id = up.id
         AND upd2.status = 'completed'
-    ) AS completed_days,
+    )
+    " : "0") . " AS completed_days,
 
-    -- всего дней
     (
         SELECT COUNT(*)
         FROM program_days pd
         WHERE pd.program_id = p.id
     ) AS total_days,
 
-    -- дней с тренировками
     (
         SELECT COUNT(DISTINCT pd.id)
         FROM program_days pd
@@ -48,15 +48,31 @@ SELECT
 
 FROM programs p
 JOIN categories c ON p.category_id = c.id
+";
 
-LEFT JOIN user_programs up 
-    ON up.program_id = p.id
-    AND up.user_id = $user_id
+/* JOIN только если есть пользователь */
+if ($user_id) {
+    $query .= "
+    LEFT JOIN user_programs up 
+        ON up.program_id = p.id
+        AND up.user_id = $user_id
+    ";
+}
 
+$query .= "
 WHERE p.is_archived = 0
 
--- фильтр
-HAVING total_days = filled_days
+AND (
+    SELECT COUNT(*)
+    FROM program_days pd
+    WHERE pd.program_id = p.id
+) = (
+    SELECT COUNT(DISTINCT pd.id)
+    FROM program_days pd
+    JOIN program_day_trainings pdt 
+        ON pdt.program_day_id = pd.id
+    WHERE pd.program_id = p.id
+)
 
 ORDER BY p.id DESC
 ";
@@ -91,7 +107,8 @@ else {
         "duration_days" => $row['duration_days'],
         "difficulty_level" => $row['difficulty_level'],
         "image_url" => $row['image_url'],
-        "status" => $status
+        "status" => $status,
+        "category" => $row['category']
     ];
 }
 

@@ -41,6 +41,7 @@ function ProgramCards() {
                     {programs.map(program => (
                         <ProgramCard
                             key={program.id}
+                            id={program.id}
                             title={program.title}
                             days={program.duration_days}
                             level={program.difficulty_level}

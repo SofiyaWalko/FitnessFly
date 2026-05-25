@@ -100,14 +100,24 @@ function Program() {
 				setProgram((prev) => ({
 					...prev,
 					current_day: data.new_current_day,
-					days: prev.days.map((day) => ({
-						...day,
-						trainings: day.trainings.map((t) =>
+
+					days: prev.days.map((day) => {
+						const updatedTrainings = day.trainings.map((t) =>
 							t.id === activeVideo.id
 								? { ...t, completed: true }
 								: t,
-						),
-					})),
+						);
+
+						const allCompleted = updatedTrainings.every(
+							(t) => t.completed,
+						);
+
+						return {
+							...day,
+							trainings: updatedTrainings,
+							isCompleted: allCompleted,
+						};
+					}),
 				}));
 
 				setActiveVideo(null);

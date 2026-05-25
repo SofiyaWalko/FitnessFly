@@ -16,6 +16,7 @@ SELECT
     r.title,
     r.description,
     r.points_price,
+    r.calories,
     r.image_url,
     c.category_name AS category,
     CASE 
@@ -27,6 +28,7 @@ JOIN recipe_category c ON r.category_id = c.id
 LEFT JOIN favorites_rc f 
     ON f.recipe_id = r.id 
     AND f.user_id = $user_id
+WHERE r.is_archived = 0
 ORDER BY r.id DESC
 LIMIT 4
 ";
@@ -44,7 +46,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         "points_price"=>$row["points_price"],
         "image_url"=>"http://fitnessfly.local/".$row["image_url"],
         "category"=>$row["category"],
-        "isFavorite"=>boolval($row["isFavorite"])
+        "isFavorite"=>boolval($row["isFavorite"]),
+        "calories" => intval($row["calories"])
     ];
 }
 
