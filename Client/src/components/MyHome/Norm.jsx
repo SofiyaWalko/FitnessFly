@@ -1,37 +1,32 @@
 import { useEffect, useState } from "react";
-import styles from "../../pages/myhome.module.css";
+import styles from "@/pages/home/myhome.module.css";
 import NormItem from "./NormItem";
 
 function Norm({ refresh }) {
+	const [data, setData] = useState(null);
 
-	const [data,setData] = useState(null);
-
-	function loadNorms(){
-
+	function loadNorms() {
 		const user_id = localStorage.getItem("user_id");
 
-		fetch("http://fitnessfly.local/api/home/getNorms.php",{
-			method:"POST",
-			headers:{
-				"Content-Type":"application/json"
+		fetch("http://fitnessfly.local/api/home/getNorms.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
 			},
-			body:JSON.stringify({user_id})
+			body: JSON.stringify({ user_id }),
 		})
-		.then(res=>res.json())
-		.then(data=>setData(data));
-
+			.then((res) => res.json())
+			.then((data) => setData(data));
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		loadNorms();
-	},[refresh]);
+	}, [refresh]);
 
-	if(!data) return null;
+	if (!data) return null;
 
-	return(
-
+	return (
 		<div className={styles.norm}>
-
 			<NormItem
 				name="Норма калорий"
 				count={data.calories}
@@ -52,11 +47,8 @@ function Norm({ refresh }) {
 				unit=""
 				note={data.bmi_note}
 			/>
-
 		</div>
-
 	);
-
 }
 
 export default Norm;

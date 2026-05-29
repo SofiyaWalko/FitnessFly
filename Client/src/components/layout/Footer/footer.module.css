@@ -1,0 +1,39 @@
+.footer {
+	background: #fff;
+	border-top: 1px solid #eee;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.footerContent {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 72px;
+}
+
+.footerContent span {
+	font-size: 14px;
+}
+
+.social {
+	display: flex;
+	gap: 20px;
+}
+
+.social img {
+	width: 40px;
+}
+
+@media (max-width: 480px) {
+	.footerContent {
+		flex-direction: column;
+		gap: 12px;
+		height: auto;
+		padding: 20px 0;
+	}
+}

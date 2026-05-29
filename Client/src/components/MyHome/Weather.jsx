@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import styles from "../../pages/myhome.module.css";
-import weatherIcon from "../../assets/images/weather.svg";
+import styles from "@/pages/home/myhome.module.css";
+import weatherIcon from "@assets/images/weather.svg";
 
 function Weather() {
 	const [city, setCity] = useState("");
@@ -64,7 +64,9 @@ function Weather() {
 								value={city}
 								onChange={(e) => setCity(e.target.value)}
 							/>
-							<button className={styles.OK} onClick={saveCity}>OK</button>
+							<button className={styles.OK} onClick={saveCity}>
+								OK
+							</button>
 						</div>
 					) : (
 						<span onClick={() => setEditing(true)}>{city}</span>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./goalform.module.css";
-import LitleButton from "../LitleButton";
+import LitleButton from "@/components/ui/LittleButton/LittleButton";
 
 function GoalForm({ closeForm, onSuccess }) {
 	const [form, setForm] = useState({

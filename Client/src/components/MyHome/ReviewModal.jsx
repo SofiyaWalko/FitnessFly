@@ -1,30 +1,56 @@
 import { useState } from "react";
+import Modal from "../Modal/Modal";
 import styles from "./goalform.module.css";
-import LitleButton from "../LitleButton";
-import star from "../../assets/images/star.svg";
+import LitleButton from "@/components/ui/LittleButton/LittleButton";
+import star from "@assets/images/star.svg";
 
 function ReviewModal({ program, onClose, onSuccess }) {
 	const [rating, setRating] = useState(0);
 	const [hover, setHover] = useState(0);
 	const [text, setText] = useState("");
+	const [infoModal, setInfoModal] = useState({
+		open: false,
+		title: "",
+		message: "",
+	});
 
 	const MAX_LENGTH = 600;
+
+	function closeInfoModal() {
+		setInfoModal({
+			open: false,
+			title: "",
+			message: "",
+		});
+	}
 
 	function submitReview() {
 		const user_id = localStorage.getItem("user_id");
 
 		if (!rating) {
-			alert("Поставьте оценку");
+			setInfoModal({
+				open: true,
+				title: "Ошибка",
+				message: "Поставьте оценку",
+			});
 			return;
 		}
 
 		if (text.length < 10) {
-			alert("Отзыв слишком короткий");
+			setInfoModal({
+				open: true,
+				title: "Ошибка",
+				message: "Отзыв слишком короткий",
+			});
 			return;
 		}
 
 		if (text.length > MAX_LENGTH) {
-			alert("Слишком длинный отзыв");
+			setInfoModal({
+				open: true,
+				title: "Ошибка",
+				message: "Слишком длинный отзыв",
+			});
 			return;
 		}
 
@@ -43,7 +69,11 @@ function ReviewModal({ program, onClose, onSuccess }) {
 				if (data.success) {
 					onSuccess();
 				} else {
-					alert(data.message);
+					setInfoModal({
+						open: true,
+						title: "Ошибка",
+						message: data.message,
+					});
 				}
 			});
 	}
@@ -98,9 +128,19 @@ function ReviewModal({ program, onClose, onSuccess }) {
 
 				<div className={styles.buttons}>
 					<LitleButton onClick={submitReview}>Отправить</LitleButton>
-					<LitleButton variant="outline" onClick={onClose}>Закрыть</LitleButton>
+					<LitleButton variant="outline" onClick={onClose}>
+						Закрыть
+					</LitleButton>
 				</div>
 			</div>
+
+			<Modal
+				open={infoModal.open}
+				title={infoModal.title}
+				onClose={closeInfoModal}
+			>
+				{infoModal.message}
+			</Modal>
 		</div>
 	);
 }

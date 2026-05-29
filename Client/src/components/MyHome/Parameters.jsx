@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./parameters.module.css";
 import Parameter from "./Parameter";
-import BigButton from "../BigButton";
+import BigButton from "@components/ui/BigButton/BigButton";
 import ParametersForm from "./ParametersForm";
 import HistoryModal from "./HistoryModal";
 
@@ -44,36 +44,40 @@ function Parameters({ refresh, onUpdate }) {
 				<h3>Мои параметры</h3>
 
 				<div className={styles.items}>
-					<Parameter
-						name="Текущий вес"
-						value={data.weight}
-						unit="кг"
-					/>
-					<Parameter name="Рост" value={data.height} unit="см" />
-					<Parameter
-						name="Обхват груди"
-						value={data.chest}
-						unit="см"
-					/>
-					<Parameter
-						name="Обхват талии"
-						value={data.waist}
-						unit="см"
-					/>
-					<Parameter
-						name="Обхват бёдер"
-						value={data.hips}
-						unit="см"
-					/>
+					<div className={styles.parameterGroup}>
+						<Parameter
+							name="Текущий вес"
+							value={data.weight}
+							unit="кг"
+						/>
+						<Parameter name="Рост" value={data.height} unit="см" />
+						<Parameter
+							name="Обхват груди"
+							value={data.chest}
+							unit="см"
+						/>
+						<Parameter
+							name="Обхват талии"
+							value={data.waist}
+							unit="см"
+						/>
+						<Parameter
+							name="Обхват бёдер"
+							value={data.hips}
+							unit="см"
+						/>
+					</div>
 
-					<BigButton
-						text="Добавить новые измерения"
-						onClick={() => setShowForm(true)}
-					/>
-					<BigButton
-						text="История изменений"
-						onClick={() => setShowHistory(true)}
-					/>
+					<div className={styles.parametersActions}>
+						<BigButton
+							text="Добавить новые измерения"
+							onClick={() => setShowForm(true)}
+						/>
+						<BigButton
+							text="История изменений"
+							onClick={() => setShowHistory(true)}
+						/>
+					</div>
 				</div>
 			</div>
 

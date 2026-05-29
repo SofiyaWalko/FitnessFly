@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./goalform.module.css";
-import LitleButton from "../LitleButton";
+import LitleButton from "@/components/ui/LittleButton/LittleButton";
 
 function EditParameterRow({ item, onClose, onSuccess }) {
 	const [form, setForm] = useState({
@@ -35,7 +35,6 @@ function EditParameterRow({ item, onClose, onSuccess }) {
 	return (
 		<div className={styles.modal}>
 			<div className={styles.modal_content}>
-				
 				<h2>Редактирование параметров</h2>
 
 				<div className={styles.form_grid}>

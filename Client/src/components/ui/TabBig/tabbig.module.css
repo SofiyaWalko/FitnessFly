@@ -1,0 +1,66 @@
+.tabbig {
+	padding: 12px 20px;
+
+	font-size: 18px;
+	color: #969696;
+	text-decoration: none;
+
+	background: none;
+
+	border: 1px solid #969696;
+	border-radius: 100px;
+
+	cursor: pointer;
+
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.tabbig {
+		padding: 12px 16px;
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.tabbig {
+		padding: 10px 14px;
+		font-size: 15px;
+	}
+
+	.badge {
+		top: -3px;
+		right: -2px;
+		min-width: 16px;
+		height: 16px;
+		font-size: 11px;
+	}
+}
+
+.active {
+	background: linear-gradient(90deg, #31c4ff, #360db3);
+	color: #fff;
+	border: none;
+}
+
+.badge {
+	position: absolute;
+	top: -4px;
+	right: -3px;
+
+	background: #ff3b3b;
+	color: #fff;
+
+	font-size: 12px;
+	font-weight: 600;
+
+	min-width: 18px;
+	height: 18px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: 50%;
+	padding: 0 5px;
+}

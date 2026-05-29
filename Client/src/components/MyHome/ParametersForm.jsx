@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Modal from "../Modal/Modal";
 import styles from "./goalform.module.css";
-import LitleButton from "../LitleButton";
+import LitleButton from "@/components/ui/LittleButton/LittleButton";
 
 function ParametersForm({ closeForm, onSuccess }) {
 	const [form, setForm] = useState({
@@ -11,10 +12,24 @@ function ParametersForm({ closeForm, onSuccess }) {
 		hips: "",
 	});
 
+	const [infoModal, setInfoModal] = useState({
+		open: false,
+		title: "",
+		message: "",
+	});
+
 	function handleChange(e) {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
+		});
+	}
+
+	function closeInfoModal() {
+		setInfoModal({
+			open: false,
+			title: "",
+			message: "",
 		});
 	}
 
@@ -40,7 +55,11 @@ function ParametersForm({ closeForm, onSuccess }) {
 						onSuccess();
 					}
 				} else {
-					alert(res.message);
+					setInfoModal({
+						open: true,
+						title: "Ошибка",
+						message: res.message,
+					});
 				}
 			})
 			.catch((err) => console.log(err));
@@ -85,6 +104,14 @@ function ParametersForm({ closeForm, onSuccess }) {
 					</LitleButton>
 				</div>
 			</div>
+
+			<Modal
+				open={infoModal.open}
+				title={infoModal.title}
+				onClose={closeInfoModal}
+			>
+				{infoModal.message}
+			</Modal>
 		</div>
 	);
 }

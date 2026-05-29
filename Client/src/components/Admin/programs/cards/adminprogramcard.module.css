@@ -1,0 +1,120 @@
+.container {
+	max-width: 310px;
+	width: 100%;
+	height: auto;
+
+	background: #fff;
+	padding: 15px;
+	border: 1px solid #eaeaff;
+	border-radius: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+	display: flex;
+	flex-direction: column;
+
+	position: relative;
+}
+
+.linkProgram {
+	text-decoration: none;
+}
+
+.imgProgram {
+	width: 100%;
+	height: 420px;
+	object-fit: cover;
+	border-radius: 18px;
+}
+
+.info {
+	display: flex;
+	justify-content: space-between;
+	padding: 16px 0 16px 0;
+}
+
+.calender,
+.level {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	padding: 8px 16px;
+
+	background: #f3f3f3;
+	border-radius: 100px;
+}
+
+.calender span,
+.level span {
+	color: #2d2d2d;
+	font-size: 14px;
+}
+
+h4 {
+	font-size: 24;
+	color: #2d2d2d;
+	font-weight: 500;
+}
+
+.buttonWrapper {
+	margin-top: auto;
+	padding-top: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.primary {
+	background: #5685eb;
+	border: none;
+}
+
+.primary span {
+	color: #fff;
+}
+
+.primary:hover {
+	background: #6a96f5;
+}
+
+@media (max-width: 768px) {
+	.container {
+		max-width: 100%;
+		padding: 12px;
+	}
+
+	.imgProgram {
+		height: 300px;
+	}
+
+	h4 {
+		font-size: 20px;
+	}
+
+	.calender,
+	.level {
+		padding: 6px 12px;
+	}
+
+	.calender span,
+	.level span {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 480px) {
+	.imgProgram {
+		height: 220px;
+	}
+
+	h4 {
+		font-size: 18px;
+	}
+
+	.info {
+		padding: 12px 0;
+	}
+
+	.buttonWrapper {
+		padding-top: 12px;
+	}
+}

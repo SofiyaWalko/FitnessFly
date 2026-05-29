@@ -1,0 +1,36 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+.title {
+	margin: 0;
+	line-height: 1.2;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+	.header {
+		gap: 12px;
+		margin-bottom: 18px;
+	}
+}
+
+@media (max-width: 480px) {
+	.header {
+		margin-bottom: 16px;
+	}
+
+	.title {
+		font-size: 20px;
+	}
+}

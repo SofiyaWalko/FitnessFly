@@ -1,0 +1,43 @@
+.adminpanel {
+	padding: 0 0 100px 0;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.recipes {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.empty {
+	margin-top: 40px;
+	color: #969696;
+	font-size: 16px;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 0 16px;
+	}
+
+	.recipes {
+		gap: 8px;
+	max-width: 450px;
+
+	}
+
+	.empty {
+		font-size: 14px;
+	}
+}
+
+@media (max-width: 480px) {
+	.empty {
+		font-size: 13px;
+	}
+}

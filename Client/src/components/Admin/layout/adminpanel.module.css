@@ -1,0 +1,104 @@
+.adminpanel {
+	padding: 0 0 100px 0;
+	flex: 1;
+}
+
+.page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	max-width: 1320px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.tabbig {
+	margin: 40px 0 50px 0;
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	padding-bottom: 8px;
+}
+
+.tabbig > * {
+	white-space: nowrap;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header .buttons {
+	display: flex;
+	gap: 20;
+	align-items: center;
+}
+
+.title {
+	line-height: 32px;
+}
+
+.empty {
+	margin-top: 40px;
+	color: #969696;
+	font-size: 16px;
+}
+
+.programs {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.trainings {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+@media (max-width: 924px) {
+	.trainings {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 0 16px;
+	}
+
+	.programs {
+		gap: 8px;
+	}
+
+	.tabbig {
+		gap: 10px;
+	}
+
+	.trainings {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.header .buttons {
+		gap: 12px;
+	}
+}
+
+@media (max-width: 480px) {
+	.tabbig {
+		margin: 20px 0 30px 0;
+	}
+
+	.trainings {
+		gap: 12px;
+	}
+}

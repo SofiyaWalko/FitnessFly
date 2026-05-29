@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./historyparameters.module.css";
 import EditParameterRow from "./EditParameterRow";
-import LitleButton from "../LitleButton";
+import LitleButton from "@/components/ui/LittleButton/LittleButton";
 
 function HistoryModal({ close, onUpdate }) {
 	const [data, setData] = useState([]);

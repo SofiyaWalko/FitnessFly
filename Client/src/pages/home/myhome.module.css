@@ -1,0 +1,486 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.header .buttons {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.home_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.info {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.norm_weather {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	flex: 1;
+}
+
+.norm {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.weather {
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	border: 1px solid #eaeaff;
+	border-radius: 16px;
+	padding: 20px 40px 20px 20px;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.weather_items {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.question {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.question img {
+	width: 32px;
+	height: 32px;
+}
+
+.question span {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.weather .item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.weather .item:nth-child(1) {
+	font-size: 16px;
+	color: #1c2d52;
+}
+
+.weather .item span:nth-child(2) {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.pesonal_info {
+	padding: 20px;
+	border: 1px solid #eaeaff;
+	border-radius: 16px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	max-width: 420px;
+	width: 100%;
+}
+
+.info_header {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.name_age {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.name_age span:nth-child(1) {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.name_age span:nth-child(2) {
+	font-size: 18px;
+}
+
+.age_update {
+	display: flex;
+	gap: 120px;
+	align-items: center;
+}
+
+.info_header .photo {
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.info_header .photo img {
+	width: 80px;
+	height: auto;
+	object-fit: cover;
+	object-position: center;
+}
+
+.balance {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	border: 1px solid #eaeaff;
+	padding: 10px 20px;
+	border-radius: 10px;
+}
+
+.balance_name {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.balance_name span:nth-child(1) {
+	font-size: 16px;
+}
+
+.balance_name span:nth-child(2) {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.balance_count {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.balance_count {
+	font-size: 30px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.balance_count img {
+	width: 30px;
+	height: 30px;
+}
+
+.goal {
+	display: flex;
+	gap: 20px;
+}
+
+.goal_item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+
+	padding: 10px 20px;
+	background-color: #e7f0ff;
+	border-radius: 10px;
+}
+
+.goal_item span:nth-child(1) {
+	font-size: 16px;
+}
+
+.goal_item span:nth-child(2) {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.telegram_profile_block {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #eaeaff;
+	padding: 12px 20px;
+	border-radius: 10px;
+	background-color: #fafbff;
+}
+
+.telegram_status_row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.telegram_label_group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.telegram_icon {
+	width: 20px;
+	height: 20px;
+}
+
+.telegram_action_group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.connected {
+	color: #10b981;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+	.header {
+		gap: 16px;
+	}
+
+	.info {
+		flex-direction: column;
+	}
+
+	.pesonal_info {
+		max-width: 100%;
+	}
+
+	.chart_parameters {
+		flex-direction: column;
+	}
+
+	.norm {
+		gap: 16px;
+	}
+
+	.age_update {
+		gap: 24px;
+	}
+}
+
+@media (max-width: 768px) {
+	.header .buttons {
+		gap: 12px;
+	}
+
+	.buttons button {
+		width: 40px;
+		height: 40px;
+	}
+
+	.buttons img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.home_wrapper {
+		gap: 32px;
+	}
+
+	.info,
+	.chart_parameters,
+	.goal {
+		gap: 16px;
+	}
+
+	.norm {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+
+	.norm > :first-child {
+		grid-column: 1 / -1;
+	}
+
+	.weather {
+		padding: 18px 20px;
+	}
+
+	.weather_items {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.balance {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.goal {
+		flex-direction: column;
+	}
+
+	.age_update {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.question {
+		margin-bottom: 20px;
+	}
+
+	.weather_items {
+		gap: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.title {
+		font-size: 24px;
+	}
+
+	.weather,
+	.pesonal_info,
+	.telegram_profile_block {
+		padding: 16px;
+	}
+
+	.question span {
+		font-size: 16px;
+	}
+
+	.name_age span:nth-child(1),
+	.balance_name span:nth-child(2),
+	.goal_item span:nth-child(2) {
+		font-size: 16px;
+	}
+
+	.balance_count {
+		font-size: 24px;
+	}
+
+	.change span {
+		font-size: 14px;
+	}
+
+	.chart_parameters {
+		gap: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.norm {
+		grid-template-columns: 1fr;
+	}
+
+	.norm > :first-child {
+		grid-column: 1 / -1;
+	}
+}
+
+.disconnected {
+	color: #ef4444;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.telegram_compact_connect_btn {
+	border: none;
+	border-radius: 6px;
+	padding: 6px 12px;
+	background: #24a1de;
+	color: #fff;
+	font-weight: 600;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.telegram_compact_connect_btn:hover {
+	background: #1c82be;
+}
+
+.telegram_compact_disconnect_btn {
+	border: none;
+	background: none;
+	color: #9ca3af;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 4px;
+	line-height: 1;
+	transition: color 0.2s;
+}
+
+.telegram_compact_disconnect_btn:hover {
+	color: #ef4444;
+}
+
+.change {
+	display: flex;
+	gap: 6px;
+
+	align-self: center;
+}
+
+.change span {
+	font-size: 16px;
+	font-weight: 500;
+
+	background: linear-gradient(90deg, #31c4ff, #360db3);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.chart_parameters {
+	display: flex;
+	gap: 20px;
+}
+
+.OK {
+	color: #fff;
+	background-color: #5685eb;
+	border: none;
+	border-radius: 100px;
+	padding: 8px 0 8px 0;
+	cursor: pointer;
+}
+
+.change_city {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.change_city input {
+	height: 30px;
+	padding: 0 8px;
+
+	border-radius: 6px;
+	border: 1px solid #d8d8e8;
+	background: #f3f3f8;
+	color: #1c2d52;
+
+	font-size: 14px;
+}
