@@ -41,11 +41,27 @@ if(mysqli_num_rows($todayResult) > 0){
     exit;
 }
 
+/* переносим уровень активности из последнего измерения,
+   иначе нормы калорий и ИМТ обнулятся (нет activity_id) */
+$activityRes = mysqli_query($link, "
+SELECT activity_id FROM body_parameters
+WHERE user_id = $user_id AND activity_id IS NOT NULL
+ORDER BY created_at DESC
+LIMIT 1
+");
+
+$activityRow = mysqli_fetch_assoc($activityRes);
+$activity_id = $activityRow && $activityRow['activity_id'] !== null
+    ? intval($activityRow['activity_id'])
+    : null;
+
+$activitySql = $activity_id !== null ? $activity_id : "NULL";
+
 $query = "
 INSERT INTO body_parameters
-(user_id,weight,waist,chest,hips,height)
+(user_id,weight,waist,chest,hips,height,activity_id)
 VALUES
-($user_id,$weight,$waist,$chest,$hips,$height)
+($user_id,$weight,$waist,$chest,$hips,$height,$activitySql)
 ";
 
 mysqli_query($link,$query);

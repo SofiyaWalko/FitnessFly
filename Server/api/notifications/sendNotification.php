@@ -92,6 +92,22 @@ if (!$title || !$message) {
 }
 
 /* ======================
+   УВЕДОМЛЕНИЕ НА САЙТЕ
+   (запись в центр уведомлений всем пользователям)
+====================== */
+mysqli_query($link, "
+INSERT INTO notifications (title, message, created_at)
+VALUES ('$title', '$message', NOW())
+");
+
+$notification_id = mysqli_insert_id($link);
+
+mysqli_query($link, "
+INSERT INTO user_notifications (user_id, notification_id)
+SELECT id, $notification_id FROM users
+");
+
+/* ======================
    EMAIL ПОЛЬЗОВАТЕЛИ
 ====================== */
 $emailUsersRes = mysqli_query($link, "
@@ -144,6 +160,7 @@ if ($telegramUsersRes) {
 
 echo json_encode([
     "success" => true,
+    "notification_id" => $notification_id,
     "email_sent" => $email_sent,
     "email_error" => $email_error,
     "telegram_sent" => $telegram_sent,

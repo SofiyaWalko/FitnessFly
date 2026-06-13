@@ -135,7 +135,7 @@ function AdminProgramDetails() {
 				closeConfirmModal();
 
 				fetch(
-					"http://fitnessfly.local/api/notifications/sendTelegramNotification.php",
+					"http://fitnessfly.local/api/notifications/sendNotification.php",
 					{
 						method: "POST",
 						headers: {
