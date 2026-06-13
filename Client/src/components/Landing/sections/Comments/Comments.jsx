@@ -65,6 +65,20 @@ function Comments() {
 								</SwiperSlide>
 							))}
 						</Swiper>
+					) : comments.length > 4 ? (
+						<Swiper
+							modules={[Pagination]}
+							spaceBetween={20}
+							slidesPerView={4}
+							pagination={{ clickable: true }}
+							className={styles.swiper}
+						>
+							{comments.map((comment) => (
+								<SwiperSlide key={comment.id}>
+									<Comment {...comment} />
+								</SwiperSlide>
+							))}
+						</Swiper>
 					) : (
 						<div className={styles.grid}>
 							{comments.map((comment) => (

@@ -1,0 +1,21 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "client",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": [
+				"run",
+				"dev",
+				"--prefix",
+				"Client",
+				"--",
+				"--port",
+				"5188",
+				"--strictPort"
+			],
+			"port": 5188,
+			"autoPort": false
+		}
+	]
+}
