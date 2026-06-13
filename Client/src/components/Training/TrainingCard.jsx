@@ -7,6 +7,7 @@ import icon_cost from "@assets/images/icon_cost.svg";
 import favorite_none from "@assets/images/favorite_none.svg";
 import favorite_active from "@assets/images/favorite_active.svg";
 import Status_Category from "@/components/ui/StatusCategory/StatusCategory";
+import { pluralize } from "@/utils/plural";
 
 function TrainingCard({
 	id,
@@ -143,13 +144,19 @@ function TrainingCard({
 				</div>
 
 				<div className={styles.favorite_time}>
-					<img
-						className={styles.favorite}
-						src={isFavorite ? favorite_active : favorite_none}
-						onClick={toggleFavorite}
-						alt="heart"
-					/>
-					<span className={styles.time}>{time} минут</span>
+					{/* в избранное можно добавлять только выполненные тренировки,
+					    поэтому сердечко показываем лишь для выполненных */}
+					{completed && (
+						<img
+							className={styles.favorite}
+							src={isFavorite ? favorite_active : favorite_none}
+							onClick={toggleFavorite}
+							alt="heart"
+						/>
+					)}
+					<span className={styles.time}>
+						{time} {pluralize(time, ["минута", "минуты", "минут"])}
+					</span>
 				</div>
 			</div>
 

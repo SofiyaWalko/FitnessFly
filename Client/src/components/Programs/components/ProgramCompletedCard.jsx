@@ -4,6 +4,7 @@ import icon_calender from "@assets/images/icon_calender.svg";
 import icon_level from "@assets/images/icon_level.svg";
 import Status_Category from "@/components/ui/StatusCategory/StatusCategory";
 import ButtonGray from "@components/ui/ButtonGray/ButtonGray";
+import { daysLabel } from "@/utils/plural";
 
 function ProgramCompletedCard({
 	id,
@@ -26,7 +27,7 @@ function ProgramCompletedCard({
 				<div className={styles.info}>
 					<div className={styles.calender}>
 						<img src={icon_calender} alt="days" />
-						<span>{days} дней</span>
+						<span>{daysLabel(days)}</span>
 					</div>
 
 					<div className={styles.level}>

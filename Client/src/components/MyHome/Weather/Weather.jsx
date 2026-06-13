@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "@/pages/home/myhome.module.css";
+import styles from "./weather.module.css";
 import weatherIcon from "@assets/images/weather.svg";
+import { API_BASE } from "@/config";
 
 function Weather() {
 	const [city, setCity] = useState("");
@@ -16,7 +17,7 @@ function Weather() {
 	}, []);
 
 	function loadWeather() {
-		fetch("http://fitnessfly.local/api/weather/get_weather.php", {
+		fetch(`${API_BASE}/weather/get_weather.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ user_id }),
@@ -33,7 +34,7 @@ function Weather() {
 	}
 
 	function saveCity() {
-		fetch("http://fitnessfly.local/api/weather/update_city.php", {
+		fetch(`${API_BASE}/weather/update_city.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ user_id, city }),

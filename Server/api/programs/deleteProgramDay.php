@@ -45,8 +45,19 @@ WHERE program_day_id = $day_id
    УДАЛЯЕМ ДЕНЬ
 ====================== */
 mysqli_query($link, "
-DELETE FROM program_days 
+DELETE FROM program_days
 WHERE id = $day_id
+");
+
+/* ======================
+   ПЕРЕНУМЕРАЦИЯ ДНЕЙ
+   (сдвигаем все последующие дни на 1 вниз,
+   чтобы нумерация осталась последовательной)
+====================== */
+mysqli_query($link, "
+UPDATE program_days
+SET day_number = day_number - 1
+WHERE program_id = $program_id AND day_number > $day_number
 ");
 
 /* ======================

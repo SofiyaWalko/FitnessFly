@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./notificationspanel.module.css";
 import NotificationItem from "./NotificationItem";
-import Modal from "../Modal/Modal";
+import Modal from "@/components/Modal/Modal";
 import closeIcon from "@assets/images/exit.svg";
+import { API_BASE } from "@/config";
 
 function NotificationsPanel({ onClose, onRead }) {
 	const [notifications, setNotifications] = useState([]);
@@ -20,7 +21,7 @@ function NotificationsPanel({ onClose, onRead }) {
 		const user_id = localStorage.getItem("user_id");
 
 		fetch(
-			"http://fitnessfly.local/api/notifications/getNotifications.php",
+			`${API_BASE}/notifications/getNotifications.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -31,14 +32,14 @@ function NotificationsPanel({ onClose, onRead }) {
 			.then(setNotifications);
 
 		// помечаем как прочитанные
-		fetch("http://fitnessfly.local/api/notifications/markAsRead.php", {
+		fetch(`${API_BASE}/notifications/markAsRead.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ user_id }),
 		}).then(() => onRead()); // сброс бейджа
 
 		fetch(
-			"http://fitnessfly.local/api/notifications/getNotificationType.php",
+			`${API_BASE}/notifications/getNotificationType.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -50,7 +51,7 @@ function NotificationsPanel({ onClose, onRead }) {
 
 		// Получаем статус Telegram
 		fetch(
-			"http://fitnessfly.local/api/notifications/getTelegramStatus.php",
+			`${API_BASE}/notifications/getTelegramStatus.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -61,7 +62,7 @@ function NotificationsPanel({ onClose, onRead }) {
 			.then(setTelegramStatus);
 
 		fetch(
-			"http://fitnessfly.local/api/notifications/getTelegramConnectLink.php",
+			`${API_BASE}/notifications/getTelegramConnectLink.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -99,7 +100,7 @@ function NotificationsPanel({ onClose, onRead }) {
 				const type_id = newType === "email" ? 1 : 2;
 
 				fetch(
-					"http://fitnessfly.local/api/notifications/changeNotificationType.php",
+					`${API_BASE}/notifications/changeNotificationType.php`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },

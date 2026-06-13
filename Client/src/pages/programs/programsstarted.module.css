@@ -14,7 +14,19 @@
 }
 
 .programs {
-    display: flex;
-    gap: 1%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .programs {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 540px) {
+    .programs {
+        grid-template-columns: 1fr;
+    }
 }

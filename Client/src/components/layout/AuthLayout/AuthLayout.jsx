@@ -1,12 +1,12 @@
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import styles from "./authlayout.module.css";
 
 function AuthLayout({ children }) {
 	return (
-		<>
+		<div className={styles.wrapper}>
 			<Header />
-			{children}
-		</>
+			<div className={styles.content}>{children}</div>
+		</div>
 	);
 }
 

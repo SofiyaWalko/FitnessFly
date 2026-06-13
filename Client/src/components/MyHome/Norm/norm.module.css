@@ -1,0 +1,33 @@
+.norm {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+@media (max-width: 1200px) {
+	.norm {
+		gap: 16px;
+	}
+}
+
+@media (max-width: 768px) {
+	.norm {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+
+	.norm > :first-child {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width: 480px) {
+	.norm {
+		grid-template-columns: 1fr;
+	}
+
+	.norm > :first-child {
+		grid-column: 1 / -1;
+	}
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./historyparameters.module.css";
 import EditParameterRow from "./EditParameterRow";
 import LitleButton from "@/components/ui/LittleButton/LittleButton";
+import { API_BASE } from "@/config";
 
 function HistoryModal({ close, onUpdate }) {
 	const [data, setData] = useState([]);
@@ -14,7 +15,7 @@ function HistoryModal({ close, onUpdate }) {
 	}, []);
 
 	function load() {
-		fetch("http://fitnessfly.local/api/home/getParametersHistory.php", {
+		fetch(`${API_BASE}/home/getParametersHistory.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ user_id }),

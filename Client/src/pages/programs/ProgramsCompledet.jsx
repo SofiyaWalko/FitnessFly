@@ -3,7 +3,7 @@ import styles from "./programscompleted.module.css";
 import NotificationsButton from "@/components/NotificationButton/NotificationsButton";
 import LogoutButton from "@/components/LogoutButton/LogoutButton";
 import ProgramCompletedCard from "@components/Programs/components/ProgramCompletedCard";
-import ReviewModal from "@components/MyHome/ReviewModal";
+import ReviewModal from "@components/MyHome/Review/ReviewModal";
 
 function ProgramsCompleted() {
 	const [programs, setPrograms] = useState([]);

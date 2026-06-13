@@ -1,6 +1,7 @@
 import { useState } from "react";
-import styles from "./goalform.module.css";
+import styles from "../shared/formModal.module.css";
 import LitleButton from "@/components/ui/LittleButton/LittleButton";
+import { API_BASE } from "@/config";
 
 function EditParameterRow({ item, onClose, onSuccess }) {
 	const [form, setForm] = useState({
@@ -16,7 +17,7 @@ function EditParameterRow({ item, onClose, onSuccess }) {
 	}
 
 	function save() {
-		fetch("http://fitnessfly.local/api/home/updateParameterRow.php", {
+		fetch(`${API_BASE}/home/updateParameterRow.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({

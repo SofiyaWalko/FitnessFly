@@ -13,7 +13,6 @@
 	justify-content: center;
 
 	z-index: 1000;
-    
 }
 
 .modal_content {
@@ -41,7 +40,6 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 10px;
-
 }
 
 .form_grid input,
@@ -66,28 +64,6 @@
 .form_grid select:focus {
 	border-color: #5b7cff;
 }
-
-/* .modal_content button {
-	padding: 14px 28px;
-
-	border-radius: 25px;
-
-	border: none;
-
-	background: #5b7cff;
-
-	color: white;
-
-	font-size: 16px;
-
-	cursor: pointer;
-
-	transition: 0.2s;
-} */
-
-/* .modal_content button:hover {
-	background: #4a69e0;
-} */
 
 .modal_close {
 	position: absolute;

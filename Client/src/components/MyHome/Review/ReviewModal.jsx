@@ -1,8 +1,9 @@
 import { useState } from "react";
-import Modal from "../Modal/Modal";
-import styles from "./goalform.module.css";
+import Modal from "@/components/Modal/Modal";
+import styles from "../shared/formModal.module.css";
 import LitleButton from "@/components/ui/LittleButton/LittleButton";
 import star from "@assets/images/star.svg";
+import { API_BASE } from "@/config";
 
 function ReviewModal({ program, onClose, onSuccess }) {
 	const [rating, setRating] = useState(0);
@@ -12,16 +13,25 @@ function ReviewModal({ program, onClose, onSuccess }) {
 		open: false,
 		title: "",
 		message: "",
+		success: false,
 	});
 
 	const MAX_LENGTH = 600;
 
 	function closeInfoModal() {
+		const wasSuccess = infoModal.success;
+
 		setInfoModal({
 			open: false,
 			title: "",
 			message: "",
+			success: false,
 		});
+
+		// после закрытия благодарности закрываем форму отзыва
+		if (wasSuccess) {
+			onSuccess();
+		}
 	}
 
 	function submitReview() {
@@ -54,7 +64,7 @@ function ReviewModal({ program, onClose, onSuccess }) {
 			return;
 		}
 
-		fetch("http://fitnessfly.local/api/reviews/createReview.php", {
+		fetch(`${API_BASE}/reviews/createReview.php`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -67,7 +77,12 @@ function ReviewModal({ program, onClose, onSuccess }) {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.success) {
-					onSuccess();
+					setInfoModal({
+						open: true,
+						title: "Спасибо!",
+						message: "Ваш отзыв отправлен",
+						success: true,
+					});
 				} else {
 					setInfoModal({
 						open: true,

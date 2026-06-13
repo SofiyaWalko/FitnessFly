@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./admincreatetraining.module.css";
+import FilePreview from "@/components/ui/FilePreview/FilePreview";
 
 function AdminCreateTraining() {
 	const navigate = useNavigate();
@@ -18,6 +19,8 @@ function AdminCreateTraining() {
 		points_reward: "",
 		video: null,
 		image: null,
+		video_url: null,
+		image_url: null,
 	});
 
 	const [error, setError] = useState("");
@@ -43,6 +46,12 @@ function AdminCreateTraining() {
 					points_reward: data.points_reward,
 					video: null,
 					image: null,
+					video_url: data.video_url
+						? "http://fitnessfly.local" + data.video_url
+						: null,
+					image_url: data.image_url
+						? "http://fitnessfly.local" + data.image_url
+						: null,
 				});
 			});
 	}, [id, isEdit]);
@@ -98,7 +107,7 @@ function AdminCreateTraining() {
 	}
 
 	function handleRemoveFile(type) {
-		setForm({ ...form, [type]: null });
+		setForm({ ...form, [type]: null, [`${type}_url`]: null });
 
 		if (type === "video" && videoInputRef.current) {
 			videoInputRef.current.value = "";
@@ -152,6 +161,7 @@ function AdminCreateTraining() {
 		const formData = new FormData();
 
 		Object.keys(form).forEach((key) => {
+			if (key === "image_url" || key === "video_url") return; // превью существующих файлов не отправляем
 			if (form[key] !== null && form[key] !== "") {
 				formData.append(key, form[key]);
 			}
@@ -254,25 +264,20 @@ function AdminCreateTraining() {
 						<input
 							type="file"
 							name="video"
+							accept="video/*"
 							className={styles.fileInput}
 							onChange={handleChange}
 							ref={videoInputRef}
 						/>
 					</label>
 
-					{form.video && (
-						<div className={styles.fileInfo}>
-							<span className={styles.fileName}>
-								{form.video.name}
-							</span>
-							<button
-								type="button"
-								className={styles.removeFileBtn}
-								onClick={() => handleRemoveFile("video")}
-							>
-								✕
-							</button>
-						</div>
+					{(form.video || form.video_url) && (
+						<FilePreview
+							file={form.video}
+							url={form.video_url}
+							type="video"
+							onRemove={() => handleRemoveFile("video")}
+						/>
 					)}
 				</div>
 
@@ -285,25 +290,20 @@ function AdminCreateTraining() {
 						<input
 							type="file"
 							name="image"
+							accept="image/*"
 							className={styles.fileInput}
 							onChange={handleChange}
 							ref={imageInputRef}
 						/>
 					</label>
 
-					{form.image && (
-						<div className={styles.fileInfo}>
-							<span className={styles.fileName}>
-								{form.image.name}
-							</span>
-							<button
-								type="button"
-								className={styles.removeFileBtn}
-								onClick={() => handleRemoveFile("image")}
-							>
-								✕
-							</button>
-						</div>
+					{(form.image || form.image_url) && (
+						<FilePreview
+							file={form.image}
+							url={form.image_url}
+							type="image"
+							onRemove={() => handleRemoveFile("image")}
+						/>
 					)}
 				</div>
 

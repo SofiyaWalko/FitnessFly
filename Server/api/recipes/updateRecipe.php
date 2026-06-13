@@ -64,7 +64,10 @@ foreach ($steps as $index => $step) {
     $description = mysqli_real_escape_string($link, $step["description"]);
     $step_number = intval($step["step_number"]);
 
-    $image_url = null;
+    // сохраняем существующую картинку шага, если новый файл не загружали
+    $image_url = isset($step["image_url"]) && $step["image_url"]
+        ? mysqli_real_escape_string($link, $step["image_url"])
+        : null;
 
     if (isset($_FILES["step_image_$index"])) {
         $fileName = time() . "_" . $_FILES["step_image_$index"]["name"];

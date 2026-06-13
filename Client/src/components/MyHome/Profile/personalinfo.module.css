@@ -1,0 +1,274 @@
+.pesonal_info {
+	padding: 20px;
+	border: 1px solid #eaeaff;
+	border-radius: 16px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	max-width: 420px;
+	width: 100%;
+}
+
+.info_header {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.name_age {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.name_age span:nth-child(1) {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.name_age span:nth-child(2) {
+	font-size: 18px;
+}
+
+.age_update {
+	display: flex;
+	gap: 120px;
+	align-items: center;
+}
+
+.info_header .photo {
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.info_header .photo img {
+	width: 80px;
+	height: auto;
+	object-fit: cover;
+	object-position: center;
+}
+
+.balance {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	border: 1px solid #eaeaff;
+	padding: 10px 20px;
+	border-radius: 10px;
+}
+
+.balance_name {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.balance_name span:nth-child(1) {
+	font-size: 16px;
+}
+
+.balance_name span:nth-child(2) {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.balance_count {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.balance_count {
+	font-size: 30px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.balance_count img {
+	width: 30px;
+	height: 30px;
+}
+
+.goal {
+	display: flex;
+	gap: 20px;
+}
+
+.goal_item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+
+	padding: 10px 20px;
+	background-color: #e7f0ff;
+	border-radius: 10px;
+}
+
+.goal_item span:nth-child(1) {
+	font-size: 16px;
+}
+
+.goal_item span:nth-child(2) {
+	font-size: 18px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.telegram_profile_block {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #eaeaff;
+	padding: 12px 20px;
+	border-radius: 10px;
+	background-color: #fafbff;
+}
+
+.telegram_status_row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.telegram_label_group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #1c2d52;
+}
+
+.telegram_icon {
+	width: 20px;
+	height: 20px;
+}
+
+.telegram_action_group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.connected {
+	color: #10b981;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.disconnected {
+	color: #ef4444;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.telegram_compact_connect_btn {
+	border: none;
+	border-radius: 6px;
+	padding: 6px 12px;
+	background: #24a1de;
+	color: #fff;
+	font-weight: 600;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.telegram_compact_connect_btn:hover {
+	background: #1c82be;
+}
+
+.telegram_compact_disconnect_btn {
+	border: none;
+	background: none;
+	color: #9ca3af;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 4px;
+	line-height: 1;
+	transition: color 0.2s;
+}
+
+.telegram_compact_disconnect_btn:hover {
+	color: #ef4444;
+}
+
+.change {
+	display: flex;
+	gap: 6px;
+
+	align-self: center;
+	cursor: pointer;
+}
+
+.change span {
+	font-size: 16px;
+	font-weight: 500;
+
+	background: linear-gradient(90deg, #31c4ff, #360db3);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 1200px) {
+	.pesonal_info {
+		max-width: 100%;
+	}
+
+	.age_update {
+		gap: 24px;
+	}
+}
+
+@media (max-width: 768px) {
+	.goal {
+		gap: 16px;
+		flex-direction: column;
+	}
+
+	.balance {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.age_update {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
+	}
+}
+
+@media (max-width: 480px) {
+	.pesonal_info,
+	.telegram_profile_block {
+		padding: 16px;
+	}
+
+	.name_age span:nth-child(1),
+	.balance_name span:nth-child(2),
+	.goal_item span:nth-child(2) {
+		font-size: 16px;
+	}
+
+	.balance_count {
+		font-size: 24px;
+	}
+
+	.change span {
+		font-size: 14px;
+	}
+}

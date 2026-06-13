@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import styles from "./progressstats.module.css";
 import ProgressChart from "./ProgressChart";
+import CustomSelect from "@/components/ui/CustomSelect/CustomSelect";
+import { API_BASE } from "@/config";
 
 const periods = [
   { key: "all", label: "Весь период" },
@@ -20,7 +22,7 @@ export default function ProgressStats({ refresh }) {
   function loadStats() {
     const user_id = localStorage.getItem("user_id");
 
-    fetch("http://fitnessfly.local/api/home/getProgressStats.php", {
+    fetch(`${API_BASE}/home/getProgressStats.php`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id })
@@ -112,16 +114,18 @@ export default function ProgressStats({ refresh }) {
       <div className={styles.chartCard}>
 
         <div className={styles.chartHeader}>
-          <select
-            className={styles.select}
+          <div className={styles.selectWrap}>
+          <CustomSelect
             value={metric}
-            onChange={(e) => setMetric(e.target.value)}
-          >
-            <option value="weight">Вес</option>
-            <option value="waist">Обхват талии</option>
-            <option value="chest">Обхват груди</option>
-            <option value="hips">Обхват бёдер</option>
-          </select>
+            options={[
+              { value: "weight", label: "Вес" },
+              { value: "waist", label: "Обхват талии" },
+              { value: "chest", label: "Обхват груди" },
+              { value: "hips", label: "Обхват бёдер" },
+            ]}
+            onChange={(value) => setMetric(value)}
+          />
+          </div>
         </div>
 
         {filteredData.length > 0 ? (

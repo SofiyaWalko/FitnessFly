@@ -7,6 +7,7 @@ import icon_calender from "@assets/images/icon_calender.svg";
 import icon_level from "@assets/images/icon_level.svg";
 import icon_check from "@assets/images/check.svg";
 import TrainingCard from "@components/Training/TrainingCard";
+import { daysLabel } from "@/utils/plural";
 
 function Program() {
 	const { id } = useParams();
@@ -168,7 +169,7 @@ function Program() {
 						<div className={styles.meta}>
 							<div className={styles.calender}>
 								<img src={icon_calender} alt="days" />
-								<span>{program.duration_days} дней</span>
+								<span>{daysLabel(program.duration_days)}</span>
 							</div>
 
 							<div className={styles.level}>

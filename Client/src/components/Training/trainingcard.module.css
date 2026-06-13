@@ -60,7 +60,7 @@
 .trainingcard .favorite_time {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     align-items: end;
 }
@@ -68,6 +68,11 @@
 .trainingcard .favorite_time .favorite {
     width: 40px;
     height: 40px;
+    cursor: pointer;
+
+    /* прижимаем сердечко к верху, чтобы время оставалось внизу
+       вне зависимости от наличия кнопки */
+    margin-bottom: auto;
 }
 
 

@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./admincreateprogram.module.css";
+import CustomSelect from "@/components/ui/CustomSelect/CustomSelect";
+import FilePreview from "@/components/ui/FilePreview/FilePreview";
 
 function AdminCreateProgram() {
 	const navigate = useNavigate();
@@ -18,6 +20,7 @@ function AdminCreateProgram() {
 		difficulty_level: "",
 		category_id: "",
 		image: null,
+		image_url: null,
 	});
 
 	const [error, setError] = useState("");
@@ -45,7 +48,7 @@ function AdminCreateProgram() {
 	}
 
 	function handleRemoveFile() {
-		setForm({ ...form, image: null });
+		setForm({ ...form, image: null, image_url: null });
 
 		if (fileInputRef.current) {
 			fileInputRef.current.value = "";
@@ -69,6 +72,7 @@ function AdminCreateProgram() {
 					difficulty_level: data.difficulty_level,
 					category_id: data.category_id,
 					image: null,
+					image_url: data.image_url || null,
 				});
 			});
 	}, [id]);
@@ -105,6 +109,7 @@ function AdminCreateProgram() {
 		const formData = new FormData();
 
 		Object.keys(form).forEach((key) => {
+			if (key === "image_url") return; // не отправляем превью существующей картинки
 			if (form[key] !== null) {
 				formData.append(key, form[key]);
 			}
@@ -167,28 +172,34 @@ function AdminCreateProgram() {
 				</div>
 
 				<div className={styles.field}>
-					<label>Уровень сложности</label>
-					<input
-						name="difficulty_level"
+					<CustomSelect
+						label="Уровень сложности"
 						value={form.difficulty_level}
-						onChange={handleChange}
+						placeholder="Выберите уровень сложности"
+						options={[
+							{ value: "Лёгкий", label: "Лёгкий" },
+							{ value: "Средний", label: "Средний" },
+							{ value: "Тяжёлый", label: "Тяжёлый" },
+						]}
+						onChange={(value) =>
+							setForm({ ...form, difficulty_level: value })
+						}
 					/>
 				</div>
 
 				<div className={styles.field}>
-					<label>Категория</label>
-					<select
-						name="category_id"
+					<CustomSelect
+						label="Категория"
 						value={form.category_id}
-						onChange={handleChange}
-					>
-						<option value="">Выберите категорию</option>
-						{categories.map((c) => (
-							<option key={c.id} value={c.id}>
-								{c.name}
-							</option>
-						))}
-					</select>
+						placeholder="Выберите категорию"
+						options={categories.map((c) => ({
+							value: c.id,
+							label: c.name,
+						}))}
+						onChange={(value) =>
+							setForm({ ...form, category_id: value })
+						}
+					/>
 				</div>
 
 				<div className={styles.field}>
@@ -199,26 +210,20 @@ function AdminCreateProgram() {
 						<input
 							type="file"
 							name="image"
+							accept="image/*"
 							className={styles.fileInput}
 							onChange={handleChange}
 							ref={fileInputRef}
 						/>
 					</label>
 
-					{form.image && (
-						<div className={styles.fileInfo}>
-							<span className={styles.fileName}>
-								{form.image.name}
-							</span>
-
-							<button
-								type="button"
-								className={styles.removeFileBtn}
-								onClick={handleRemoveFile}
-							>
-								✕
-							</button>
-						</div>
+					{(form.image || form.image_url) && (
+						<FilePreview
+							file={form.image}
+							url={form.image_url}
+							type="image"
+							onRemove={handleRemoveFile}
+						/>
 					)}
 				</div>
 

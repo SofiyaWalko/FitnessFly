@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "@/pages/home/myhome.module.css";
+import styles from "./norm.module.css";
 import NormItem from "./NormItem";
+import { API_BASE } from "@/config";
 
 function Norm({ refresh }) {
 	const [data, setData] = useState(null);
@@ -8,7 +9,7 @@ function Norm({ refresh }) {
 	function loadNorms() {
 		const user_id = localStorage.getItem("user_id");
 
-		fetch("http://fitnessfly.local/api/home/getNorms.php", {
+		fetch(`${API_BASE}/home/getNorms.php`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

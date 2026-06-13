@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./registerform.module.css";
+import CustomSelect from "@/components/ui/CustomSelect/CustomSelect";
 
 function RegisterStep2({ formData, setFormData }) {
 	const [errors, setErrors] = useState({});
@@ -9,6 +10,11 @@ function RegisterStep2({ formData, setFormData }) {
 
 		// очищаем ошибку при изменении
 		setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+	}
+
+	function changeField(name, value) {
+		setFormData({ ...formData, [name]: value });
+		setErrors((prev) => ({ ...prev, [name]: "" }));
 	}
 
 	function submit() {
@@ -208,34 +214,37 @@ function RegisterStep2({ formData, setFormData }) {
 
 				{/* Активность */}
 				<div className={styles.field}>
-					<label>Уровень активности</label>
-
-					<select
-						name="activity"
+					<CustomSelect
+						label="Уровень активности"
 						value={formData.activity}
-						onChange={change}
-					>
-						<option value="">Не выбрано</option>
-						<option value="1">Сидячий образ жизни</option>
-						<option value="2">Небольшая активность</option>
-						<option value="3">Умеренная активность</option>
-						<option value="4">Высокая активность</option>
-						<option value="5">Очень высокая активность</option>
-					</select>
+						placeholder="Не выбрано"
+						options={[
+							{ value: "1", label: "Сидячий образ жизни" },
+							{ value: "2", label: "Небольшая активность" },
+							{ value: "3", label: "Умеренная активность" },
+							{ value: "4", label: "Высокая активность" },
+							{ value: "5", label: "Очень высокая активность" },
+						]}
+						onChange={(value) => changeField("activity", value)}
+					/>
 				</div>
 
 				{/* Цель */}
 				<div className={styles.field}>
-					<label>Цель</label>
-
-					<select name="goal" value={formData.goal} onChange={change}>
-						<option value="">Не выбрано</option>
-						<option value="Снижение веса">Снижение веса</option>
-						<option value="Поддержание веса">
-							Поддержание веса
-						</option>
-						<option value="Набор веса">Набор веса</option>
-					</select>
+					<CustomSelect
+						label="Цель"
+						value={formData.goal}
+						placeholder="Не выбрано"
+						options={[
+							{ value: "Снижение веса", label: "Снижение веса" },
+							{
+								value: "Поддержание веса",
+								label: "Поддержание веса",
+							},
+							{ value: "Набор веса", label: "Набор веса" },
+						]}
+						onChange={(value) => changeField("goal", value)}
+					/>
 				</div>
 
 				<button type="submit" className={styles.button}>

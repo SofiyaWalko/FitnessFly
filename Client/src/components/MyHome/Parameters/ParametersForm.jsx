@@ -1,16 +1,22 @@
 import { useState } from "react";
-import styles from "./goalform.module.css";
+import Modal from "@/components/Modal/Modal";
+import styles from "../shared/formModal.module.css";
 import LitleButton from "@/components/ui/LittleButton/LittleButton";
+import { API_BASE } from "@/config";
 
-function GoalForm({ closeForm, onSuccess }) {
+function ParametersForm({ closeForm, onSuccess, initial }) {
 	const [form, setForm] = useState({
-		height: "",
-		weight: "",
-		waist: "",
-		chest: "",
-		hips: "",
-		activity: "",
-		goal: "",
+		height: initial?.height ?? "",
+		weight: initial?.weight ?? "",
+		waist: initial?.waist ?? "",
+		chest: initial?.chest ?? "",
+		hips: initial?.hips ?? "",
+	});
+
+	const [infoModal, setInfoModal] = useState({
+		open: false,
+		title: "",
+		message: "",
 	});
 
 	function handleChange(e) {
@@ -20,10 +26,18 @@ function GoalForm({ closeForm, onSuccess }) {
 		});
 	}
 
+	function closeInfoModal() {
+		setInfoModal({
+			open: false,
+			title: "",
+			message: "",
+		});
+	}
+
 	function submitForm() {
 		const user_id = localStorage.getItem("user_id");
 
-		fetch("http://fitnessfly.local/api/home/updateGoal.php", {
+		fetch(`${API_BASE}/home/updateParameters.php`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,6 +55,12 @@ function GoalForm({ closeForm, onSuccess }) {
 					if (onSuccess) {
 						onSuccess();
 					}
+				} else {
+					setInfoModal({
+						open: true,
+						title: "Ошибка",
+						message: res.message,
+					});
 				}
 			})
 			.catch((err) => console.log(err));
@@ -49,7 +69,7 @@ function GoalForm({ closeForm, onSuccess }) {
 	return (
 		<div className={styles.modal}>
 			<div className={styles.modal_content}>
-				<h2>Расчёт суточной нормы калорий</h2>
+				<h2>Контроль параметров</h2>
 
 				<div className={styles.form_grid}>
 					<div className={styles.field}>
@@ -96,51 +116,25 @@ function GoalForm({ closeForm, onSuccess }) {
 							onChange={handleChange}
 						/>
 					</div>
-
-					<div className={styles.field}>
-						<label>Уровень активности</label>
-						<select
-							name="activity"
-							value={form.activity}
-							onChange={handleChange}
-						>
-							<option value="">Не выбрано</option>
-							<option value="1">Сидячий образ жизни</option>
-							<option value="2">Небольшая активность</option>
-							<option value="3">Умеренная активность</option>
-							<option value="4">Высокая активность</option>
-							<option value="5">Очень высокая активность</option>
-						</select>
-					</div>
-
-					<div className={styles.field}>
-						<label>Цель</label>
-						<select
-							name="goal"
-							value={form.goal}
-							onChange={handleChange}
-						>
-							<option value="">Не выбрано</option>
-							<option value="Снижение веса">Снизить вес</option>
-							<option value="Набор веса">Набрать массу</option>
-							<option value="Поддержание веса">
-								Поддержание веса
-							</option>
-						</select>
-					</div>
 				</div>
 
-				<div className={styles.modal_buttons}></div>
-
 				<div className={styles.buttons}>
-					<LitleButton onClick={submitForm}>Рассчитать</LitleButton>
+					<LitleButton onClick={submitForm}>Сохранить</LitleButton>
 					<LitleButton variant="outline" onClick={closeForm}>
 						Закрыть
 					</LitleButton>
 				</div>
 			</div>
+
+			<Modal
+				open={infoModal.open}
+				title={infoModal.title}
+				onClose={closeInfoModal}
+			>
+				{infoModal.message}
+			</Modal>
 		</div>
 	);
 }
 
-export default GoalForm;
+export default ParametersForm;

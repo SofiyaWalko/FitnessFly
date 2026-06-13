@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./admincreaterecipe.module.css";
+import CustomSelect from "@/components/ui/CustomSelect/CustomSelect";
+import FilePreview from "@/components/ui/FilePreview/FilePreview";
+import IngredientAutocomplete from "@/components/ui/IngredientAutocomplete/IngredientAutocomplete";
 
 function AdminCreateRecipe() {
 	const navigate = useNavigate();
@@ -25,6 +28,7 @@ function AdminCreateRecipe() {
 		points: "",
 		calories: "",
 		image: null,
+		image_url: null,
 	});
 
 	const [error, setError] = useState("");
@@ -58,6 +62,9 @@ function AdminCreateRecipe() {
 					points: data.points,
 					calories: data.calories,
 					image: null,
+					image_url: data.image
+						? "http://fitnessfly.local/" + data.image
+						: null,
 				});
 
 				setIngredients(
@@ -92,7 +99,7 @@ function AdminCreateRecipe() {
 	}
 
 	function handleRemoveFile() {
-		setForm({ ...form, image: null });
+		setForm({ ...form, image: null, image_url: null });
 		if (fileInputRef.current) fileInputRef.current.value = "";
 	}
 
@@ -215,6 +222,7 @@ function AdminCreateRecipe() {
 		const formData = new FormData();
 
 		Object.keys(form).forEach((key) => {
+			if (key === "image_url") return; // не отправляем превью существующей картинки
 			if (form[key] !== null) {
 				formData.append(key, form[key]);
 			}
@@ -287,19 +295,18 @@ function AdminCreateRecipe() {
 				</div>
 
 				<div className={styles.field}>
-					<label>Категория</label>
-					<select
-						name="category_id"
+					<CustomSelect
+						label="Категория"
 						value={form.category_id}
-						onChange={handleChange}
-					>
-						<option value="">Выберите категорию</option>
-						{categories.map((c) => (
-							<option key={c.id} value={c.id}>
-								{c.name}
-							</option>
-						))}
-					</select>
+						placeholder="Выберите категорию"
+						options={categories.map((c) => ({
+							value: c.id,
+							label: c.name,
+						}))}
+						onChange={(value) =>
+							setForm({ ...form, category_id: value })
+						}
+					/>
 				</div>
 
 				<div className={styles.field}>
@@ -332,26 +339,20 @@ function AdminCreateRecipe() {
 						<input
 							type="file"
 							name="image"
+							accept="image/*"
 							className={styles.fileInput}
 							onChange={handleChange}
 							ref={fileInputRef}
 						/>
 					</label>
 
-					{form.image && (
-						<div className={styles.fileInfo}>
-							<span className={styles.fileName}>
-								{form.image.name}
-							</span>
-
-							<button
-								type="button"
-								className={styles.removeFileBtn}
-								onClick={handleRemoveFile}
-							>
-								✕
-							</button>
-						</div>
+					{(form.image || form.image_url) && (
+						<FilePreview
+							file={form.image}
+							url={form.image_url}
+							type="image"
+							onRemove={handleRemoveFile}
+						/>
 					)}
 				</div>
 
@@ -362,16 +363,28 @@ function AdminCreateRecipe() {
 					<div className={styles.ingredients}>
 						{ingredients.map((ing, i) => (
 							<div key={i} className={styles.ingredientRow}>
-								<input
-									placeholder="Название"
+								<IngredientAutocomplete
 									value={ing.name}
-									onChange={(e) =>
+									placeholder="Название"
+									onChange={(value) =>
 										handleIngredientChange(
 											i,
 											"name",
-											e.target.value,
+											value,
 										)
 									}
+									onSelect={(item) => {
+										const updated = [...ingredients];
+										updated[i] = {
+											...updated[i],
+											name: item.name,
+											quantity:
+												updated[i].quantity ||
+												item.quantity ||
+												"",
+										};
+										setIngredients(updated);
+									}}
 								/>
 								<input
 									placeholder="Количество"
@@ -411,9 +424,19 @@ function AdminCreateRecipe() {
 					<div className={styles.steps}>
 						{steps.map((step, i) => (
 							<div key={i} className={styles.stepRow}>
-								<span className={styles.stepNumber}>
-									Шаг {i + 1}
-								</span>
+								<div className={styles.stepHeader}>
+									<span className={styles.stepNumber}>
+										Шаг {i + 1}
+									</span>
+
+									<button
+										type="button"
+										className={styles.removeBtn}
+										onClick={() => removeStep(i)}
+									>
+										✕
+									</button>
+								</div>
 
 								<textarea
 									className={styles.textarea}
@@ -432,6 +455,7 @@ function AdminCreateRecipe() {
 									Выбрать фото шага
 									<input
 										type="file"
+										accept="image/*"
 										className={styles.fileInput}
 										onChange={(e) =>
 											handleStepChange(
@@ -444,57 +468,31 @@ function AdminCreateRecipe() {
 								</label>
 
 								{step.image && (
-									<div className={styles.fileInfo}>
-										<span className={styles.fileName}>
-											{step.image.name}
-										</span>
-
-										<button
-											type="button"
-											className={styles.removeFileBtn}
-											onClick={() =>
-												handleStepChange(
-													i,
-													"image",
-													null,
-												)
-											}
-										>
-											✕
-										</button>
-									</div>
+									<FilePreview
+										file={step.image}
+										type="image"
+										onRemove={() =>
+											handleStepChange(i, "image", null)
+										}
+									/>
 								)}
 
 								{/* если редактирование и есть старая картинка */}
 								{!step.image && step.image_url && (
-									<div className={styles.fileInfo}>
-										<span className={styles.fileName}>
-											{step.image_url.split("/").pop()}
-										</span>
-
-										<button
-											type="button"
-											className={styles.removeFileBtn}
-											onClick={() =>
-												handleStepChange(
-													i,
-													"image_url",
-													null,
-												)
-											}
-										>
-											✕
-										</button>
-									</div>
+									<FilePreview
+										url={`http://fitnessfly.local/images${step.image_url}`}
+										name={step.image_url.split("/").pop()}
+										type="image"
+										onRemove={() =>
+											handleStepChange(
+												i,
+												"image_url",
+												null,
+											)
+										}
+									/>
 								)}
 
-								<button
-									type="button"
-									className={styles.removeBtn}
-									onClick={() => removeStep(i)}
-								>
-									✕
-								</button>
 							</div>
 						))}
 					</div>

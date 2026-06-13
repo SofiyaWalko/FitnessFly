@@ -16,12 +16,13 @@ if(!$user_id){
 }
 
 $query = "
-SELECT 
+SELECT
     weight,
     height,
     chest,
     waist,
-    hips
+    hips,
+    activity_id
 FROM body_parameters
 WHERE user_id = $user_id
 ORDER BY created_at DESC
@@ -47,5 +48,6 @@ echo json_encode([
     "height" => $row['height'],
     "chest" => $row['chest'],
     "waist" => $row['waist'],
-    "hips" => $row['hips']
+    "hips" => $row['hips'],
+    "activity" => $row['activity_id']
 ]);

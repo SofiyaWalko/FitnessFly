@@ -253,6 +253,12 @@
 	background: #ffd6d6;
 }
 
+.stepHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .steps {
 	display: flex;
 	flex-direction: column;

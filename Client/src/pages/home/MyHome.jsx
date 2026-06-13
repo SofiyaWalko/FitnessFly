@@ -4,12 +4,13 @@ import LogoutButton from "@/components/LogoutButton/LogoutButton";
 import styles from "./myhome.module.css";
 
 import NotificationsButton from "@/components/NotificationButton/NotificationsButton";
-import NotificationsPanel from "@components/MyHome/NotificationsPanel";
-import Norm from "@components/MyHome/Norm";
-import Weather from "@components/MyHome/Weather";
-import PersonalInfo from "@components/MyHome/PersonalInfo";
-import Parameters from "@components/MyHome/Parameters";
-import ProgressStats from "@components/MyHome/ProgressStats";
+import NotificationsPanel from "@components/MyHome/Notifications/NotificationsPanel";
+import Norm from "@components/MyHome/Norm/Norm";
+import Weather from "@components/MyHome/Weather/Weather";
+import PersonalInfo from "@components/MyHome/Profile/PersonalInfo";
+import Parameters from "@components/MyHome/Parameters/Parameters";
+import ProgressStats from "@components/MyHome/Progress/ProgressStats";
+import { API_BASE } from "@/config";
 
 function MyHome() {
 	const [refresh, setRefresh] = useState(false);
@@ -25,7 +26,7 @@ function MyHome() {
 
 		function fetchCount() {
 			fetch(
-				"http://fitnessfly.local/api/notifications/getUnreadCount.php",
+				`${API_BASE}/notifications/getUnreadCount.php`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

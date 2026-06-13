@@ -3,6 +3,7 @@ import styles from "./adminprogramcard.module.css";
 import ButtonGray from "@components/ui/ButtonGray/ButtonGray";
 import icon_calender from "@assets/images/icon_calender.svg";
 import icon_level from "@assets/images/icon_level.svg";
+import { daysLabel } from "@/utils/plural";
 
 function AdminProgramCard({
 	id,
@@ -64,7 +65,7 @@ function AdminProgramCard({
 			<div className={styles.info}>
 				<div className={styles.calender}>
 					<img src={icon_calender} alt="days" />
-					<span>{finalDays} дней</span>
+					<span>{daysLabel(finalDays)}</span>
 				</div>
 
 				<div className={styles.level}>

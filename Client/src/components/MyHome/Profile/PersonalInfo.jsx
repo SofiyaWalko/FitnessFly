@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import Modal from "../Modal/Modal";
-import styles from "@/pages/home/myhome.module.css";
+import Modal from "@/components/Modal/Modal";
+import styles from "./personalinfo.module.css";
 
 import avatar from "@assets/images/photo.png";
 import coinsIcon from "@assets/images/icon_cost.svg";
 import changeIcon from "@assets/images/change.svg";
 import telegramIcon from "@assets/images/telegram.svg";
 
-import GoalForm from "./GoalForm";
+import GoalForm from "../Goal/GoalForm";
+import { API_BASE } from "@/config";
 
 function PersonalInfo({ onUpdate }) {
 	const [data, setData] = useState(null);
@@ -33,7 +34,7 @@ function PersonalInfo({ onUpdate }) {
 	function loadProfile() {
 		const user_id = localStorage.getItem("user_id");
 
-		fetch("http://fitnessfly.local/api/home/getPersonalInfo.php", {
+		fetch(`${API_BASE}/home/getPersonalInfo.php`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -48,7 +49,7 @@ function PersonalInfo({ onUpdate }) {
 
 		// Получаем статус Telegram
 		fetch(
-			"http://fitnessfly.local/api/notifications/getTelegramStatus.php",
+			`${API_BASE}/notifications/getTelegramStatus.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -60,7 +61,7 @@ function PersonalInfo({ onUpdate }) {
 
 		// Получаем ссылку для подключения Telegram
 		fetch(
-			"http://fitnessfly.local/api/notifications/getTelegramConnectLink.php",
+			`${API_BASE}/notifications/getTelegramConnectLink.php`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -104,7 +105,7 @@ function PersonalInfo({ onUpdate }) {
 				const user_id = localStorage.getItem("user_id");
 
 				fetch(
-					"http://fitnessfly.local/api/notifications/disconnectTelegram.php",
+					`${API_BASE}/notifications/disconnectTelegram.php`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -151,7 +152,7 @@ function PersonalInfo({ onUpdate }) {
 		formData.append("photo", file);
 		formData.append("user_id", user_id);
 
-		fetch("http://fitnessfly.local/api/home/uploadUserPhoto.php", {
+		fetch(`${API_BASE}/home/uploadUserPhoto.php`, {
 			method: "POST",
 			body: formData,
 		})
@@ -280,6 +281,7 @@ function PersonalInfo({ onUpdate }) {
 				<GoalForm
 					closeForm={() => setShowForm(false)}
 					onSuccess={handleSuccess}
+					initialGoal={data.goal}
 				/>
 			)}
 

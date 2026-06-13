@@ -4,6 +4,7 @@ import Parameter from "./Parameter";
 import BigButton from "@components/ui/BigButton/BigButton";
 import ParametersForm from "./ParametersForm";
 import HistoryModal from "./HistoryModal";
+import { API_BASE } from "@/config";
 
 function Parameters({ refresh, onUpdate }) {
 	const [data, setData] = useState(null);
@@ -13,7 +14,7 @@ function Parameters({ refresh, onUpdate }) {
 	function loadParameters() {
 		const user_id = localStorage.getItem("user_id");
 
-		fetch("http://fitnessfly.local/api/home/getParameters.php", {
+		fetch(`${API_BASE}/home/getParameters.php`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -85,6 +86,7 @@ function Parameters({ refresh, onUpdate }) {
 				<ParametersForm
 					closeForm={() => setShowForm(false)}
 					onSuccess={handleSuccess}
+					initial={data}
 				/>
 			)}
 			{showHistory && (

@@ -106,9 +106,15 @@ function AdminProgramDetails() {
 						if (data.success) {
 							setProgram((prevProgram) => ({
 								...prevProgram,
-								days: prevProgram.days.filter(
-									(d) => d.day !== dayNumber,
-								),
+								days: prevProgram.days
+									.filter((d) => d.day !== dayNumber)
+									// перенумеровываем дни, чтобы они
+									// остались последовательными
+									.map((d) =>
+										d.day > dayNumber
+											? { ...d, day: d.day - 1 }
+											: d,
+									),
 							}));
 						}
 					});
