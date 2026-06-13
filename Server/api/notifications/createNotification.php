@@ -17,88 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 include __DIR__ . "/../../config.php";
 
-/* ======================
-   PHPMailer
-====================== */
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require __DIR__ . "/../../libs/PHPMailer/Exception.php";
-require __DIR__ . "/../../libs/PHPMailer/PHPMailer.php";
-require __DIR__ . "/../../libs/PHPMailer/SMTP.php";
-
-/* ======================
-   ФУНКЦИЯ EMAIL
-====================== */
-function sendEmail($to, $title, $message)
-{
-    file_put_contents("D:/log.txt", "SEND TO: $to\n", FILE_APPEND);
-
-    $mail = new PHPMailer(true);
-
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'svalko940@gmail.com';
-        $mail->Password = 'upkfaxbkaqomnjpt';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
-
-        $mail->CharSet = 'UTF-8';
-
-        $mail->setFrom('svalko940@gmail.com', 'FitnessFly');
-        $mail->addAddress($to);
-
-        $mail->isHTML(true);
-        $mail->Subject = $title;
-
-        $mail->Body = "
-        <html>
-        <body style='font-family: Arial;'>
-            <h3>$title</h3>
-            <p>$message</p>
-        </body>
-        </html>
-        ";
-
-        $mail->AltBody = $message;
-
-        $mail->send();
-
-        file_put_contents("D:/log.txt", "MAIL OK: $to\n", FILE_APPEND);
-
-    } catch (Exception $e) {
-        file_put_contents("D:/log.txt", "MAIL ERROR: " . $e->getMessage() . "\n", FILE_APPEND);
-    }
-}
-
-/* ======================
-   ФУНКЦИЯ TELEGRAM
-====================== */
-function sendTelegram($chat_id, $title, $message)
-{
-    $bot_token = "8700321886:AAHqNNCW2UY6j2M_eUu9XlOZZajRL5BmscY";
-    $api_url = "https://api.telegram.org/bot$bot_token";
-
-    $text = "🔔 $title\n\n$message";
-
-    $url = "$api_url/sendMessage?chat_id=$chat_id&text=" . urlencode($text);
-
-    $response = file_get_contents($url);
-
-    file_put_contents("D:/log.txt", "TELEGRAM SENT TO: $chat_id - " . ($response ? "OK" : "ERROR") . "\n", FILE_APPEND);
-}
+/* функции рассылки (Email + Telegram) и SMTP-настройки */
+require_once __DIR__ . "/notifier.php";
 
 /* ======================
    ПОЛУЧЕНИЕ ДАННЫХ
 ====================== */
 $data = json_decode(file_get_contents("php://input"), true);
 
-$title = isset($data['title']) ? mysqli_real_escape_string($link, $data['title']) : '';
-$message = isset($data['message']) ? mysqli_real_escape_string($link, $data['message']) : '';
+// сырой текст — для писем/телеграма; экранированный — только для SQL
+$rawTitle = isset($data['title']) ? $data['title'] : '';
+$rawMessage = isset($data['message']) ? $data['message'] : '';
 
-if (!$title || !$message) {
+$title = mysqli_real_escape_string($link, $rawTitle);
+$message = mysqli_real_escape_string($link, $rawMessage);
+
+if (!$rawTitle || !$rawMessage) {
     echo json_encode(["success" => false, "error" => "Нет данных"]);
     exit;
 }
@@ -150,8 +84,8 @@ if (!$usersRes) {
     while ($user = mysqli_fetch_assoc($usersRes)) {
         sendEmail(
             $user['email'],
-            $title,
-            $message
+            $rawTitle,
+            $rawMessage
         );
     }
 }
@@ -174,8 +108,8 @@ if (!$telegramUsersRes) {
     while ($user = mysqli_fetch_assoc($telegramUsersRes)) {
         sendTelegram(
             $user['telegram_id'],
-            $title,
-            $message
+            $rawTitle,
+            $rawMessage
         );
     }
 }

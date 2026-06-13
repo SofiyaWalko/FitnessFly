@@ -9,10 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+include __DIR__ . "/../../config.php";
+
 $data = json_decode(file_get_contents("php://input"), true);
 $user_id = intval($data["user_id"]);
 
-$bot_token = "8700321886:AAHqNNCW2UY6j2M_eUu9XlOZZajRL5BmscY";
+$bot_token = TELEGRAM_BOT_TOKEN;
 $me_url = "https://api.telegram.org/bot$bot_token/getMe";
 $me_response = file_get_contents($me_url);
 $me_data = json_decode($me_response, true);

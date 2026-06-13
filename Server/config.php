@@ -14,5 +14,18 @@
     }    
     mysqli_set_charset($link, "utf8mb4");
 
-    
+    /* ======================
+       SMTP (Gmail) — настройки почты
+    ====================== */
+    define('SMTP_HOST', 'smtp.gmail.com');
+    define('SMTP_USER', 'svalko940@gmail.com');
+    define('SMTP_PASS', 'gkpanvizqsgmfmij'); // пароль приложения Gmail
+    define('SMTP_SECURE', 'tls');
+    define('SMTP_PORT', 587);
+    define('SMTP_FROM_NAME', 'FitnessFly');
+
+    /* ======================
+       Telegram
+    ====================== */
+    define('TELEGRAM_BOT_TOKEN', '8700321886:AAHqNNCW2UY6j2M_eUu9XlOZZajRL5BmscY');
 ?>

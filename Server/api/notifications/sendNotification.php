@@ -11,82 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 include "../../config.php";
 
-/* ======================
-   PHPMailer
-====================== */
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require "../../libs/PHPMailer/Exception.php";
-require "../../libs/PHPMailer/PHPMailer.php";
-require "../../libs/PHPMailer/SMTP.php";
-
-/* ======================
-   ФУНКЦИЯ EMAIL
-====================== */
-function sendEmail($to, $title, $message)
-{
-    $mail = new PHPMailer(true);
-
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'svalko940@gmail.com';
-        $mail->Password = 'upkfaxbkaqomnjpt';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
-
-        $mail->CharSet = 'UTF-8';
-
-        $mail->setFrom('svalko940@gmail.com', 'FitnessFly');
-        $mail->addAddress($to);
-
-        $mail->isHTML(true);
-        $mail->Subject = $title;
-
-        $mail->Body = "
-        <html>
-        <body style='font-family: Arial;'>
-            <h3>$title</h3>
-            <p>$message</p>
-        </body>
-        </html>
-        ";
-
-        $mail->AltBody = $message;
-
-        $mail->send();
-        return true;
-
-    } catch (Exception $e) {
-        return false;
-    }
-}
-
-/* ======================
-   ФУНКЦИЯ TELEGRAM
-====================== */
-function sendTelegram($chat_id, $title, $message)
-{
-    $bot_token = "8700321886:AAHqNNCW2UY6j2M_eUu9XlOZZajRL5BmscY";
-    $api_url = "https://api.telegram.org/bot$bot_token";
-
-    $text = "🔔 $title\n\n$message";
-
-    $url = "$api_url/sendMessage?chat_id=$chat_id&text=" . urlencode($text);
-
-    $response = file_get_contents($url);
-
-    return $response ? true : false;
-}
+/* функции рассылки (Email + Telegram) и SMTP-настройки */
+require_once __DIR__ . "/notifier.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$title = isset($data['title']) ? mysqli_real_escape_string($link, $data['title']) : '';
-$message = isset($data['message']) ? mysqli_real_escape_string($link, $data['message']) : '';
+// сырой текст — для писем/телеграма; экранированный — только для SQL
+$rawTitle = isset($data['title']) ? $data['title'] : '';
+$rawMessage = isset($data['message']) ? $data['message'] : '';
 
-if (!$title || !$message) {
+$title = mysqli_real_escape_string($link, $rawTitle);
+$message = mysqli_real_escape_string($link, $rawMessage);
+
+if (!$rawTitle || !$rawMessage) {
     echo json_encode(["success" => false, "error" => "Нет данных"]);
     exit;
 }
@@ -125,7 +62,7 @@ $email_error = 0;
 
 if ($emailUsersRes) {
     while ($user = mysqli_fetch_assoc($emailUsersRes)) {
-        if (sendEmail($user['email'], $title, $message)) {
+        if (sendEmail($user['email'], $rawTitle, $rawMessage)) {
             $email_sent++;
         } else {
             $email_error++;
@@ -150,7 +87,7 @@ $telegram_error = 0;
 
 if ($telegramUsersRes) {
     while ($user = mysqli_fetch_assoc($telegramUsersRes)) {
-        if (sendTelegram($user['telegram_id'], $title, $message)) {
+        if (sendTelegram($user['telegram_id'], $rawTitle, $rawMessage)) {
             $telegram_sent++;
         } else {
             $telegram_error++;

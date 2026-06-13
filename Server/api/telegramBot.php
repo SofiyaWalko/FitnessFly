@@ -2,7 +2,7 @@
 
 include __DIR__ . "/../config.php";
 
-$bot_token = "8700321886:AAHqNNCW2UY6j2M_eUu9XlOZZajRL5BmscY";
+$bot_token = TELEGRAM_BOT_TOKEN;
 $api_url = "https://api.telegram.org/bot$bot_token";
 
 // Получаем offset из файла или начинаем с 0
