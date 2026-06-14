@@ -65,11 +65,11 @@ function Comments() {
 								</SwiperSlide>
 							))}
 						</Swiper>
-					) : comments.length > 4 ? (
+					) : comments.length > 3 ? (
 						<Swiper
 							modules={[Pagination]}
 							spaceBetween={20}
-							slidesPerView={4}
+							slidesPerView={3}
 							pagination={{ clickable: true }}
 							className={styles.swiper}
 						>
