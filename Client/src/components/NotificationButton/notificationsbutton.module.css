@@ -3,7 +3,7 @@
     text-decoration: none;
 }
 
-button img {
+.button img {
     width: 48px;
     height: 48px;
 	border: 1px solid #c0c0c0;
