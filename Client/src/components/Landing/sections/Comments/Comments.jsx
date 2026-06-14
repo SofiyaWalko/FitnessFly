@@ -3,7 +3,7 @@ import Comment from "@components/Landing/components/Comment/Comment";
 import SectionTitle from "@components/Landing/components/SectionTitle/SectionTitle";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -49,10 +49,16 @@ function Comments() {
 				<div className={styles.commentsWrapper}>
 					{isMobile ? (
 						<Swiper
-							modules={[Pagination]}
+							modules={[Pagination, Autoplay]}
 							spaceBetween={20}
 							slidesPerView={1}
 							pagination={{ clickable: true }}
+							loop={true}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+								pauseOnMouseEnter: true,
+							}}
 							breakpoints={{
 								768: { slidesPerView: 2 },
 								1024: { slidesPerView: 3 },
@@ -67,10 +73,16 @@ function Comments() {
 						</Swiper>
 					) : comments.length > 3 ? (
 						<Swiper
-							modules={[Pagination]}
+							modules={[Pagination, Autoplay]}
 							spaceBetween={20}
 							slidesPerView={3}
 							pagination={{ clickable: true }}
+							loop={true}
+							autoplay={{
+								delay: 3000,
+								disableOnInteraction: false,
+								pauseOnMouseEnter: true,
+							}}
 							className={styles.swiper}
 						>
 							{comments.map((comment) => (
